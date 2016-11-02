@@ -1,39 +1,52 @@
 package com.jsw.manageproductrecycler.Model;
 
+import java.util.Comparator;
+
 /**
  * Created by usuario on 19/10/16.
  */
 
-public class Product implements Comparable{
+public class Product implements Comparable<Product>{
     private int mId;
-    private int mStock;
+    private String mStock;
     private int mImage;
     private String mName;
     private String mDescription;
     private String mDosage;
     private String mBrandM;
     private double mPrice;
+    public static final Comparator<Product> PRICE_COMPARATOR = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return Double.compare(p1.getmPrice(), p2.getmPrice());
+        }
+    };
+    public static final Comparator<Product> STOCK_COMPARATOR = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return (p1.getmStock().compareTo(p2.getmStock()));
+        }
+    };
 
-    public Product(int mId, int mStock, int mImage, String mName, String mDescription, String Dosage, String mBrandM, double mPrice) {
-        this.mId = mId;
-        this.mStock = mStock;
-        this.mImage = mImage;
-        this.mName = mName;
+    public Product(int Image, String Name, String Trademark , String Dosage, String Stock, Double Price, String Description) {
+        this.mStock = Stock;
+        this.mImage = Image;
+        this.mName = Name;
         this.setmDosage(Dosage);
-        this.mDescription = mDescription;
-        this.mBrandM = mBrandM;
-        this.mPrice = mPrice;
+        this.mDescription = Description;
+        this.mBrandM = Trademark;
+        this.mPrice = Price;
     }
 
     public int getmId() {
         return mId;
     }
 
-    public int getmStock() {
+    public String getmStock() {
         return mStock;
     }
 
-    public void setmStock(int mStock) {
+    public void setmStock(String mStock) {
         this.mStock = mStock;
     }
 
@@ -135,7 +148,10 @@ public class Product implements Comparable{
     }
 
     @Override
-    public int compareTo(Object another) {
-        return ((Product)another).getmName().compareTo(this.getmName());
+    public int compareTo(Product product) {
+       if(this.getmName().compareTo(product.getmName()) == 0)
+           return this.getmBrandM().compareTo(product.getmBrandM());
+        else
+           return this.getmName().compareTo(product.getmName());
     }
 }

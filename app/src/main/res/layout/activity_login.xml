@@ -29,7 +29,7 @@
             android:ems="10"
             android:id="@+id/et_user"
             android:maxLength="20"
-            />
+            android:text="Joselu" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_pass"
+            android:text="aaaaaaaaA1"
             android:inputType="textPassword"
             android:id="@+id/et_passwd"
             android:maxLength="20"
@@ -56,6 +57,17 @@
 
     </android.support.design.widget.TextInputLayout>
 
+
+    <TextView
+        android:text="Forgot your password?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_forgot"
+        android:layout_below="@id/til_password"
+        android:layout_centerHorizontal="true"
+        android:autoLink="web"
+        android:textSize="20dp"
+        />
 
     <CheckBox
         android:text="@string/cb_text"
@@ -67,12 +79,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/widget_margin_top"/>
 
-
-    <Button
-        android:text="@string/btn_login"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/cb_remeber"
-        android:id="@+id/bt_login"/>
+        android:layout_below="@id/cb_remeber"
+        android:gravity="center_horizontal">
+
+        <include android:id="@+id/bt_login" layout="@layout/layout_btn_login"/>
+
+    </RelativeLayout>
+
+
 </RelativeLayout>

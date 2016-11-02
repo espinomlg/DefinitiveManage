@@ -18,20 +18,36 @@ public class Product_Application extends Application {
     @Override
     public void onCreate() {
         products = new ArrayList<Product>();
-        products.add(new Product(1, 25, R.drawable.pastilla, "Ibuprofeno", "Pastillas", "1gr", "genérico", 5.70));
-        products.add(new Product(2, 10,  R.drawable.pastilla, "Ibuprofeno", "Pastillas", "700mg", "genérico", 3.70));
-        products.add(new Product(3, 8, R.drawable.vaporu, "Vaporú", "Gel", "1gr", "Vicks", 10.70));
-        products.add(new Product(4, 58, R.drawable.hemoal, "Hemoal", "Gel", "1gr", "genérico", 8.70));
-        products.add(new Product(5, 78, R.drawable.juanola, "Juanolas", "Pastillas", "1gr", "Juanola", 8.70));
-        products.add(new Product(6, 115,  R.drawable.pastilla, "Paracetamol", "Pastillas", "1gr", "genérico", 6.0));
-        products.add(new Product(7, 36,  R.drawable.pastilla, "Paracetamol", "Pastillas", "700mg", "genérico", 7.80));
-        products.add(new Product(8, 74, R.drawable.avril, "Avril", "Gel", "5gr", "Avril", 6.70));
-        products.add(new Product(9, 89, R.drawable.avril, "Avril", "Gel", "1gr", "Avril", 9.70));
-        products.add(new Product(10, 04, R.drawable.diazepam, "Diazepam", "Pastillas", "1gr", "Lolailo", 15.99));
+        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "1gr", "2", 45.70, "Ibuprofeno Generico 1gr"));
+        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "700mg", "65", 15.70, "Ibuprofeno Generico 700mg"));
+        products.add(new Product(R.drawable.vaporu, "Vaporu", "Vicks", "1gr", "6", 65.70, "Gel Utopico"));
+        products.add(new Product(R.drawable.hemoal, "Hemoal", "Hemoal SA", "3gr", "2", 55.70, "Crema Almorranas"));
+        products.add(new Product(R.drawable.juanola, "Juanolas", "Juanolas", "5gr", "2", 45.70, "Pastillas"));
+        products.add(new Product(R.drawable.avril, "Avril", "Avril", "1gr", "9", 7.70, "Crema Quemaduras"));
+        products.add(new Product(R.drawable.avril, "Avril", "Avril", "5gr", "12", 15.70, "Crema Quemaduras"));
+        products.add(new Product(R.drawable.diazepam, "Diazepam", "Bayern", "1gr", "200", 45.70, "Pastillas Tranquilizantes"));
+        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "1gr", "2", 45.70, "Ibuprofeno Generico 1gr"));
+        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "700mg", "65", 15.70, "Ibuprofeno Generico 700mg"));
+        products.add(new Product(R.drawable.vaporu, "Vaporu", "Vicks", "1gr", "6", 65.70, "Gel Utopico"));
+        products.add(new Product(R.drawable.hemoal, "Hemoal", "Hemoal SA", "3gr", "2", 55.70, "Crema Almorranas"));
+        products.add(new Product(R.drawable.juanola, "Juanolas", "Juanolas", "5gr", "2", 45.70, "Pastillas"));
+        products.add(new Product(R.drawable.avril, "Avril", "Avril", "1gr", "9", 7.70, "Crema Quemaduras"));
+        products.add(new Product(R.drawable.avril, "Avril", "Avril", "5gr", "12", 15.70, "Crema Quemaduras"));
+        products.add(new Product(R.drawable.diazepam, "Diazepam", "Bayern", "1gr", "200", 45.70, "Pastillas Tranquilizantes"));
+    }
+
+    public void add(Product p){
+        this.products.add(p);
     }
 
     public List<Product> getProducts(){
-        Collections.sort(products);
         return products;
+    }
+
+    public void OrderAlph(boolean order){
+        if(order)
+            Collections.sort(products, (p1, p2) -> p1.getmName().compareTo(p2.getmName()));
+        else
+            Collections.sort(products, (p1, p2) -> p2.getmName().compareTo(p1.getmName()));
     }
 }

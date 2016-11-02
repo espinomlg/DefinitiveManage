@@ -12,6 +12,7 @@ import com.jsw.manageproductrecycler.Model.Product;
 import com.jsw.manageproductrecycler.Product_Application;
 import com.jsw.manageproductrecycler.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,10 +26,16 @@ public class ReciclerAdapter extends RecyclerView.Adapter<ReciclerAdapter.Produc
 
     private List<Product> products;
     private Context context;
+    boolean ASC = false;
 
     public ReciclerAdapter(Context context) {
         this.context = context;
-        products = ((Product_Application) context.getApplicationContext()).getProducts();
+        products = new ArrayList<Product>(((Product_Application) context.getApplicationContext()).getProducts());
+    }
+
+    public void addProduct(Product product){
+        ((Product_Application) context.getApplicationContext()).add(product);
+        updateView(((Product_Application) context.getApplicationContext()).getProducts());
     }
 
 
@@ -70,5 +77,17 @@ public class ReciclerAdapter extends RecyclerView.Adapter<ReciclerAdapter.Produc
             mPrice = (TextView) item.findViewById(R.id.tv_precio);
             mStock = (TextView) item.findViewById(R.id.tv_stock);
         }
+    }
+
+    public void updateView(List<Product> list){
+        products.clear(); //Eliminamos toda la coleccion
+        products.addAll(list); //Añadimos toda la coleccion
+        notifyDataSetChanged(); //Avisamos a la lista
+    }
+
+    public void sortProducts(){
+        ASC = !ASC;
+        ((Product_Application) context.getApplicationContext()).OrderAlph(ASC);
+        updateView(((Product_Application) context.getApplicationContext()).getProducts());
     }
 }

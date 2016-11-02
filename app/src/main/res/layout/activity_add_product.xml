@@ -17,11 +17,13 @@
         android:clickable="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:onClick="guardar"
         app:srcCompat="@android:drawable/ic_menu_save"
         android:id="@+id/fab_guardar"
         app:backgroundTint="?attr/colorPrimaryDark"
         app:elevation="5dp"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        app:fabSize="normal" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

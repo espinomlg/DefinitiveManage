@@ -1,6 +1,7 @@
 package com.jsw.manageproductrecycler;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login_Activity extends AppCompatActivity implements ILogin.View {
@@ -18,6 +20,7 @@ public class Login_Activity extends AppCompatActivity implements ILogin.View {
     private EditText mETPassword;
     private EditText mETUser;
     private TextInputLayout mTilPass, mTilUser;
+    private TextView mForget;
     private Button mBtnLogin;
     private final String TAG ="manageProduct";
     //endregion
@@ -34,6 +37,9 @@ public class Login_Activity extends AppCompatActivity implements ILogin.View {
         mTilUser = (TextInputLayout)findViewById(R.id.til_user);
         mTilPass = (TextInputLayout)findViewById(R.id.til_password);
         mBtnLogin = (Button) findViewById(R.id.bt_login);
+        mForget = (TextView)findViewById(R.id.tv_forgot);
+        Typeface font = Typeface.createFromAsset(getAssets(), "font.ttf");
+        mForget.setTypeface(font);
         //endregion
 
         //region Anonim Class

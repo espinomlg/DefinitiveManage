@@ -15,4 +15,7 @@
     <string name="add_price">Price</string>
     <string name="add_stock">Stock</string>
     <string name="add_description">Description...</string>
+    <string name="action_sort_product">Sort</string>
+    <string name="action_general_settings">General Settings</string>
+    <string name="action_account_settings">Account Settings</string>
 </resources>
