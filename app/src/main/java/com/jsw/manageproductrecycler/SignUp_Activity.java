@@ -17,9 +17,14 @@ package com.jsw.manageproductrecycler;
  *  jose.gallardo994@gmail.com
  */
 
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -30,6 +35,7 @@ public class SignUp_Activity extends AppCompatActivity {
     EditText mEtEmpresa;
     Spinner mSpnProvincia;
     Spinner mSpnLocalidad;
+    private AdapterView.OnItemSelectedListener mSpinnerListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,5 +56,37 @@ public class SignUp_Activity extends AppCompatActivity {
                     mEtEmpresa.setVisibility(View.GONE);
             }
         });
+
+        loadSpinnerProvincia();
+    }
+
+    private void loadSpinnerProvincia(){
+        //Inicializar provincias
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.provincias, R.layout.support_simple_spinner_dropdown_item);
+        mSpnProvincia.setAdapter(adapter);
+
+        mSpinnerListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (view.getId()){
+                    case R.id.spn_provincia:
+                        cargarLocalidad(mSpnProvincia.getSelectedItemPosition());
+                        break;
+                    case R.id.spn_localidad:
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        };
+    }
+
+    private void cargarLocalidad(int pos){
+        TypedArray ex = getResources().obtainTypedArray(R.array.array_provincia_a_localidades);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, ex.getIndex(pos), R.layout.support_simple_spinner_dropdown_item);
+        mSpnLocalidad.setAdapter(adapter);
     }
 }
