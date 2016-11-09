@@ -117,4 +117,10 @@ public class Login_Activity extends AppCompatActivity implements ILogin.View {
         finish();
 
     }
+
+    public void signUp(View v){
+        Intent i = new Intent(this, SignUp_Activity.class);
+        startActivity(i);
+        finish();
+    }
 }
