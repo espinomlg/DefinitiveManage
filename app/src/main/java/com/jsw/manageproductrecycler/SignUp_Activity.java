@@ -27,24 +27,27 @@ import android.widget.Spinner;
 public class SignUp_Activity extends AppCompatActivity {
 
     RadioGroup mRg;
-    EditText mEmpresa;
-    Spinner mProvincia;
-    Spinner mLocalidad;
+    EditText mEtEmpresa;
+    Spinner mSpnProvincia;
+    Spinner mSpnLocalidad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mRg = (RadioGroup)findViewById(R.id.rg_generos);
-        mEmpresa = (EditText)findViewById(R.id.editText);
+        mEtEmpresa = (EditText)findViewById(R.id.editText);
+        mSpnProvincia = (Spinner)findViewById(R.id.spn_provincia);
+        mSpnLocalidad = (Spinner)findViewById(R.id.spn_localidad);
+
         mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
                 if (radioGroup.getCheckedRadioButtonId() == R.id.rb_Empresa)
-                    mEmpresa.setVisibility(View.VISIBLE);
+                    mEtEmpresa.setVisibility(View.VISIBLE);
                 else
-                    mEmpresa.setVisibility(View.GONE);
+                    mEtEmpresa.setVisibility(View.GONE);
             }
         });
     }

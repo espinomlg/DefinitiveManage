@@ -11,16 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jsw.manageproductrecycler.Login_Activity">
 
-    <TextView
-        android:text="Forgot your password?"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@id/til_password"
-        android:layout_centerHorizontal="true"
-        android:autoLink="web"
-        android:textSize="20dp" />
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,6 +81,16 @@
 
     <TextView
         android:text="Forgot your password?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_forgot"
+        android:layout_below="@id/til_password"
+        android:layout_centerHorizontal="true"
+        android:autoLink="web"
+        android:textSize="20dp" />
+
+    <TextView
+        android:text="Dont have an account? SING UP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_signup"
