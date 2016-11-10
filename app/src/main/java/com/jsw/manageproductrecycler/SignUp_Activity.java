@@ -19,15 +19,22 @@ package com.jsw.manageproductrecycler;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUp_Activity extends AppCompatActivity {
 
@@ -35,6 +42,9 @@ public class SignUp_Activity extends AppCompatActivity {
     EditText mEtEmpresa;
     Spinner mSpnProvincia;
     Spinner mSpnLocalidad;
+    TextInputLayout mTilMail;
+    TextInputLayout mTilUsername;
+    TextInputLayout mTilPassword;
     private AdapterView.OnItemSelectedListener mSpinnerListener;
 
     @Override
@@ -45,6 +55,9 @@ public class SignUp_Activity extends AppCompatActivity {
         mEtEmpresa = (EditText)findViewById(R.id.editText);
         mSpnProvincia = (Spinner)findViewById(R.id.spn_provincia);
         mSpnLocalidad = (Spinner)findViewById(R.id.spn_localidad);
+        mTilMail = (TextInputLayout)findViewById(R.id.til_email);
+        mTilUsername = (TextInputLayout)findViewById(R.id.til_username);
+        mTilPassword = (TextInputLayout)findViewById(R.id.til_password2);
 
         mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -61,14 +74,13 @@ public class SignUp_Activity extends AppCompatActivity {
     }
 
     private void loadSpinnerProvincia(){
-        //Inicializar provincias
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.provincias, R.layout.support_simple_spinner_dropdown_item);
-        mSpnProvincia.setAdapter(adapter);
+
 
         mSpinnerListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (view.getId()){
+                Spinner sp = (Spinner) view.getParent();
+                switch (sp.getId()){
                     case R.id.spn_provincia:
                         cargarLocalidad(mSpnProvincia.getSelectedItemPosition());
                         break;
@@ -82,11 +94,59 @@ public class SignUp_Activity extends AppCompatActivity {
 
             }
         };
-    }
+
+        //Inicializar provincias
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.provincias, R.layout.support_simple_spinner_dropdown_item);
+        mSpnProvincia.setOnItemSelectedListener(mSpinnerListener);
+        mSpnProvincia.setAdapter(adapter);
+        }
 
     private void cargarLocalidad(int pos){
-        TypedArray ex = getResources().obtainTypedArray(R.array.array_provincia_a_localidades);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, ex.getIndex(pos), R.layout.support_simple_spinner_dropdown_item);
+        TypedArray aLocalidades = getResources().obtainTypedArray(R.array.array_provincia_a_localidades);
+        CharSequence[] localidades = aLocalidades.getTextArray(pos);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(SignUp_Activity.this, android.R.layout.simple_spinner_dropdown_item, localidades);
         mSpnLocalidad.setAdapter(adapter);
+    }
+
+
+
+    private int validate(){
+        String mail = mTilMail.getEditText().getText().toString();
+        String username = mTilUsername.getEditText().getText().toString();
+        String pass = mTilPassword.getEditText().getText().toString();
+
+        Pattern name = Pattern.compile("[a-zA-Z0-9]{1,255}");
+        Pattern password = Pattern.compile("[a-zA-Z0-9]{1,20}");
+
+        int res = 0;
+
+        if(Pattern.matches(name.toString(), username))
+            if (Pattern.matches(password.toString(), pass))
+                if (Pattern.matches(Patterns.EMAIL_ADDRESS.toString(), mail))
+                    res = 0;
+                else
+                    res = 3;
+            else res = 2;
+        else
+            res = 1;
+
+        return res;
+    }
+
+    public void registrarse(View v){
+        switch (validate()){
+            case 0:
+                Toast.makeText(this, "Registro OK", Toast.LENGTH_LONG).show();
+                break;
+            case 1:
+                mTilUsername.setError("User not valid");
+                break;
+            case 2:
+                mTilPassword.setError("Password not valid");
+                break;
+            case 3:
+                mTilMail.setError("Mail not valid");
+                break;
+        }
     }
 }

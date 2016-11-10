@@ -30,7 +30,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="username" />
+            android:hint="username"
+            android:id="@+id/til_signUsername" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -43,7 +44,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password" />
+            android:hint="Password"
+            android:id="@+id/til_SignPass" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -155,7 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/button" />
+        android:id="@+id/button"
+        android:onClick="registrarse"/>
 
     <EditText
         android:layout_width="match_parent"
