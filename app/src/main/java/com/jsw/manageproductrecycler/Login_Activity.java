@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jsw.manageproductrecycler.interfaces.ILogin;
+
 public class Login_Activity extends AppCompatActivity implements ILogin.View {
 
     //region vbles

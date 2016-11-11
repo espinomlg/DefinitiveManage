@@ -19,6 +19,7 @@ package com.jsw.manageproductrecycler;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -148,5 +149,11 @@ public class SignUp_Activity extends AppCompatActivity {
                 mTilMail.setError("Mail not valid");
                 break;
         }
+    }
+
+    public void verLocalidad(){
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.double_message,
+                mSpnProvincia.getSelectedItem(),
+                mSpnLocalidad.getSelectedItem().toString()), Toast.LENGTH_LONG).show();
     }
 }

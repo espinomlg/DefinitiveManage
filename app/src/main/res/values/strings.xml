@@ -18,4 +18,5 @@
     <string name="action_sort_product">Sort</string>
     <string name="action_general_settings">General Settings</string>
     <string name="action_account_settings">Account Settings</string>
+    <string name="double_message">Ha seleccionado %1$s (%2$s)</string>
 </resources>
