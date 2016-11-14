@@ -3,19 +3,23 @@ package com.jsw.manageproductrecycler;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jsw.manageproductrecycler.interfaces.ILogin;
+import com.jsw.manageproductrecycler.interfaces.IValidateAccount;
 
-public class Login_Activity extends AppCompatActivity implements ILogin.View {
+public class Login_Activity extends AppCompatActivity implements IValidateAccount.View {
 
     //region vbles
     private ILogin.Presenter mLoginMVP;
@@ -24,6 +28,7 @@ public class Login_Activity extends AppCompatActivity implements ILogin.View {
     private TextInputLayout mTilPass, mTilUser;
     private TextView mForget;
     private Button mBtnLogin;
+    private ViewGroup layout;
     private final String TAG ="manageProduct";
     //endregion
 
@@ -40,6 +45,7 @@ public class Login_Activity extends AppCompatActivity implements ILogin.View {
         mTilPass = (TextInputLayout)findViewById(R.id.til_password);
         mBtnLogin = (Button) findViewById(R.id.bt_login);
         mForget = (TextView)findViewById(R.id.tv_forgot);
+        layout = (RelativeLayout)findViewById(R.id.activity_relative_layout_);
         Typeface font = Typeface.createFromAsset(getAssets(), "font.ttf");
         mForget.setTypeface(font);
         //endregion
@@ -92,19 +98,24 @@ public class Login_Activity extends AppCompatActivity implements ILogin.View {
 
     /**
      * Show to the user the errors when the user o the password doesn't complete mimimun requeriments.
-      * @param error String Error
+      * @param nameResource String Error
      * @param View User/Password error.
      */
-    public void setMessageError(String error, int View) {
+    public void setMessageError(String nameResource, int View) {
+
+        String messageError = getResources().getString(getResources().getIdentifier(nameResource, "String", getPackageName()));
+
         switch (View){
-            case R.id.et_user: //Incorrect user case
-                mTilUser.setError(error);
+            case R.id.til_user: //Incorrect user case
+                //mTilUser.setError(error);
+                Snackbar.make(layout, messageError, Snackbar.LENGTH_SHORT).show();
                 break;
-            case R.id.et_passwd: //Incorrect Password Case
-                mTilPass.setError(error);
+            case R.id.til_password: //Incorrect Password Case
+                //mTilPass.setError(messageError);
+                Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
                 break;
             case 0: //Correct Login
-                Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
                 logear();
                 break;
         }

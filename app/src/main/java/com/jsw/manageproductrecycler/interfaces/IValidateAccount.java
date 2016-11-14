@@ -18,7 +18,9 @@ package com.jsw.manageproductrecycler.interfaces;
  */
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.jsw.manageproductrecycler.Model.Error;
 import com.jsw.manageproductrecycler.R;
 
 import java.util.regex.Pattern;
@@ -29,8 +31,9 @@ import java.util.regex.Pattern;
 
 public interface IValidateAccount {
 
-    interface msgView{
+    interface View{
         public void setMessageError(String error, int errCode);
+        public void startActivity(Intent i);
     }
 
     public interface IPresenter{
@@ -44,7 +47,7 @@ public interface IValidateAccount {
             int idOut = 0;
 
             if(User.isEmpty()) {//If User is null
-                idOut = DATAEMPTY;
+                idOut = Error.DATAEMPTY;
             }
 
             return idOut;
@@ -54,13 +57,13 @@ public interface IValidateAccount {
             int idOut = 0;
 
             if (Password.isEmpty())//If Password is null
-                idOut = DATAEMPTY;
+                idOut = Error.DATAEMPTY;
             else if (!(Password.matches(".*" + p1 + ".*")))
-                idOut = PASSMINLENGTH;
+                idOut = Error.PASSMINLENGTH;
             else if (!(Password.matches(".*" + p2 + ".*")))
-                idOut = PASSCASE;
+                idOut = Error.PASSCASE;
             else if (((Password.matches(".*" + p3 + ".*"))))
-                idOut = PASSDIGIT;
+                idOut = Error.PASSDIGIT;
 
             return idOut;
         }

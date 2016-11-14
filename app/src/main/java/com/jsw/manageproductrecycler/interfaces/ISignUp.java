@@ -19,6 +19,8 @@ package com.jsw.manageproductrecycler.interfaces;
 
 import android.util.Patterns;
 
+import com.jsw.manageproductrecycler.Model.Error;
+
 /**
  * Created by usuario on 11/11/16.
  */
@@ -32,7 +34,7 @@ public interface ISignUp extends IValidateAccount {
             int result = 0;
 
             if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                result = INVALID_MAIL;
+                result = Error.INVALID_MAIL;
 
             return 0;
         }

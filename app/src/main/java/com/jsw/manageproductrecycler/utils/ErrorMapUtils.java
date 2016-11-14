@@ -19,7 +19,7 @@ public class ErrorMapUtils {
     private static Map<String, String> map = null;
     private static int hashMapResId= R.xml.error_map;
 
-    public static Map<String, String> getErrorMapResource(Context c) {
+    public static Map<String, String> getErrorMap(Context c) {
         if (map == null) {
             XmlResourceParser parser = c.getResources().getXml(hashMapResId);
 
@@ -30,7 +30,7 @@ public class ErrorMapUtils {
 
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if (eventType == XmlPullParser.START_DOCUMENT) {
-                        Log.d("com/jsw/manageproductrecycler/utils", "Start document");
+                        Log.d("utils", "Start document");
                     } else if (eventType == XmlPullParser.START_TAG) {
                         if (parser.getName().equals("map")) {
                             boolean isLinked = parser.getAttributeBooleanValue(null, "linked", false);
