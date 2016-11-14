@@ -22,7 +22,7 @@ import com.jsw.manageproductrecycler.interfaces.IValidateAccount;
 public class Login_Activity extends AppCompatActivity implements IValidateAccount.View {
 
     //region vbles
-    private ILogin.Presenter mLoginMVP;
+    private LoginPresenter mLoginMVP;
     private EditText mETPassword;
     private EditText mETUser;
     private TextInputLayout mTilPass, mTilUser;
@@ -88,7 +88,7 @@ public class Login_Activity extends AppCompatActivity implements IValidateAccoun
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLoginMVP.validateCredentials(mETUser.getText().toString(), mETPassword.getText().toString());
+                mLoginMVP.validateCredentialsLogin(mETUser.getText().toString(), mETPassword.getText().toString());
             }
         });
 
