@@ -1,4 +1,4 @@
-package com.jsw.manageproductrecycler.interfaces;
+package com.jsw.manageproductrecycler.Model;
 
 /*
  * Copyright (c) 2016 José Luis del Pino Gallardo.
@@ -17,24 +17,21 @@ package com.jsw.manageproductrecycler.interfaces;
  *  jose.gallardo994@gmail.com
  */
 
-import android.util.Patterns;
-
 /**
- * Created by usuario on 11/11/16.
+ * Created by usuario on 14/11/16.
  */
 
-public interface ISignUp extends IValidateAccount {
+public class Error {
+    public static final int OK = 0;
+    public static final int PASSDIGIT = 10;
+    public static final int PASSCASE = 11;
+    public static final int PASSMINLENGTH = 12;
+    public static final int DATAEMPTY = 13;
+    public static final int INVALID_MAIL = 14;
+    public static int errCode;
+    public static String errMessage;
 
-    interface Presenter {
-
-
-        static int validateEmail(String email){
-            int result = 0;
-
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-                result = INVALID_MAIL;
-
-            return 0;
-        }
+    static {
+        //Aqui va a venir un constructor
     }
 }

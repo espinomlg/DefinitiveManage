@@ -25,18 +25,13 @@ public class LoginPresenter implements IValidateAccount.IPresenter{
         validateUser = IValidateAccount.IPresenter.validateUser(user);
         validatePassword = IValidateAccount.IPresenter.validatePassword(Password);
 
-        if(validateUser == IValidateAccount.OK && validatePassword == IValidateAccount.OK){
+        if(validateUser == IValidateAccount.OK) {
+            if (validatePassword == IValidateAccount.OK) {
 
-
+            }
         }
         else{
-            switch (validateUser){
-                //MOSTRAR ERROR
-            }
-
-            switch (validatePassword){
-                //MOSTRAR ERROR
-            }
+            view.setMessageError("Hola", 1);
         }
 
 

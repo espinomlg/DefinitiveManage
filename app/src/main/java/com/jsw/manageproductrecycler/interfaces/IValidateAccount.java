@@ -29,12 +29,6 @@ import java.util.regex.Pattern;
 
 public interface IValidateAccount {
 
-    int OK = 0;
-    int PASSDIGIT = 1;
-    int PASSCASE = 2;
-    int PASSMINLENGTH = 3;
-    int DATAEMPTY = 4;
-
     interface msgView{
         public void setMessageError(String error, int errCode);
     }
