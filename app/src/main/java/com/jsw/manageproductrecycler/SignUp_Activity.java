@@ -26,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jsw.manageproductrecycler.Presenter.SignUpPresenter;
 import com.jsw.manageproductrecycler.interfaces.ISignUp;
 
 import java.util.regex.Matcher;
@@ -48,6 +50,9 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
     TextInputLayout mTilMail;
     TextInputLayout mTilUsername;
     TextInputLayout mTilPassword;
+    private SignUpPresenter mPresenter;
+    private ViewGroup layout;
+
     private AdapterView.OnItemSelectedListener mSpinnerListener;
 
     @Override
@@ -61,7 +66,8 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
         mTilMail = (TextInputLayout)findViewById(R.id.til_email);
         mTilUsername = (TextInputLayout)findViewById(R.id.til_username);
         mTilPassword = (TextInputLayout)findViewById(R.id.til_password2);
-
+        mPresenter = new SignUpPresenter();
+        layout = (ViewGroup)findViewById(R.id.activity_sign_up);
         mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -77,7 +83,6 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
     }
 
     private void loadSpinnerProvincia(){
-
 
         mSpinnerListener = new AdapterView.OnItemSelectedListener() {
             @Override
@@ -113,30 +118,13 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
 
 
 
-    private int validate(){
-        String mail = mTilMail.getEditText().getText().toString();
-        String username = mTilUsername.getEditText().getText().toString();
-        String pass = mTilPassword.getEditText().getText().toString();
 
-        Pattern name = Pattern.compile("[a-zA-Z0-9]{1,255}");
-        Pattern password = Pattern.compile("[a-zA-Z0-9]{1,20}");
-
-        int res = 0;
-
-        if(Pattern.matches(name.toString(), username))
-            if (Pattern.matches(password.toString(), pass))
-                if (Pattern.matches(Patterns.EMAIL_ADDRESS.toString(), mail))
-                    res = 0;
-                else
-                    res = 3;
-            else res = 2;
-        else
-            res = 1;
-
-        return res;
-    }
 
     public void registrarse(View v){
+
+        //Recoger los datos de las vista y mandarlos al presentador.
+
+
         switch (validate()){
             case 0:
                 Toast.makeText(this, "Registro OK", Toast.LENGTH_LONG).show();
@@ -160,7 +148,24 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
     }
 
     @Override
-    public void setMessageError(String error, int errCode) {
+    public void setMessageError(String nameResource, int View) {
 
+        String messageError = getResources().getString(getResources().getIdentifier(nameResource, "String", getPackageName()));
+
+        switch (View) {
+            case R.id.til_user: //Incorrect user case
+                //mTilUser.setError(error);
+                Snackbar.make(layout, messageError, Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.til_password: //Incorrect Password Case
+                //mTilPass.setError(messageError);
+                Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.til_email:
+                Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
+            case 0: //Correct Login
+                Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

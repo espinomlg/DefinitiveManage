@@ -17,8 +17,12 @@ package com.jsw.manageproductrecycler.Presenter;
  *  jose.gallardo994@gmail.com
  */
 
+import android.util.Patterns;
+
 import com.jsw.manageproductrecycler.interfaces.ISignUp;
 import com.jsw.manageproductrecycler.interfaces.IValidateAccount;
+
+import java.util.regex.Pattern;
 
 /**
  * Created by usuario on 16/11/16.
@@ -26,4 +30,26 @@ import com.jsw.manageproductrecycler.interfaces.IValidateAccount;
 
 public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresenter{
 
+    private int validateCredentials(){
+        String mail = mTilMail.getEditText().getText().toString();
+        String username = mTilUsername.getEditText().getText().toString();
+        String pass = mTilPassword.getEditText().getText().toString();
+
+        Pattern name = Pattern.compile("[a-zA-Z0-9]{1,255}");
+        Pattern password = Pattern.compile("[a-zA-Z0-9]{1,20}");
+
+        int res = 0;
+
+        if(Pattern.matches(name.toString(), username))
+            if (Pattern.matches(password.toString(), pass))
+                if (Pattern.matches(Patterns.EMAIL_ADDRESS.toString(), mail))
+                    res = 0;
+                else
+                    res = 3;
+            else res = 2;
+        else
+            res = 1;
+
+        return res;
+    }
 }
