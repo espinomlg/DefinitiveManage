@@ -34,10 +34,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jsw.manageproductrecycler.interfaces.ISignUp;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignUp_Activity extends AppCompatActivity {
+public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
 
     RadioGroup mRg;
     EditText mEtEmpresa;
@@ -155,5 +157,10 @@ public class SignUp_Activity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.double_message,
                 mSpnProvincia.getSelectedItem(),
                 mSpnLocalidad.getSelectedItem().toString()), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setMessageError(String error, int errCode) {
+
     }
 }
