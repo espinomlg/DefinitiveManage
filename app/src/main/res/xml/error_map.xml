@@ -17,9 +17,10 @@
   -->
 
 <map linked="true">
+    <entry key="0">successful</entry>
     <entry key="10">passDigit</entry>
     <entry key="11">passCase</entry>
     <entry key="12">passMinLength</entry>
     <entry key="13">data_empty</entry>
-    <entry key="14">mail_invalid</entry>
+    <entry key="14">mailInvalid</entry>
 </map>

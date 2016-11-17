@@ -103,7 +103,7 @@ public class Login_Activity extends AppCompatActivity implements IValidateAccoun
      */
     public void setMessageError(String nameResource, int View) {
 
-        String messageError = getResources().getString(getResources().getIdentifier(nameResource, "String", getPackageName()));
+        String messageError = getResources().getString(getResources().getIdentifier(nameResource, "string", getPackageName()));
 
         switch (View){
             case R.id.til_user: //Incorrect user case

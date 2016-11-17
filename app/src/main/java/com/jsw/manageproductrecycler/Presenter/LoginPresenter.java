@@ -59,8 +59,6 @@ public class LoginPresenter implements IValidateAccount.IPresenter{
                     Por logica los startActivity siempre en las activitys, si no queremos abrirlo
                     desde las activitys los hacemos con view.startActivity
                  */
-                Intent i = new Intent(context, Login_Activity.class);
-                view.startActivity();
             }
             else{
                 String nameIdMessage = ErrorMapUtils.getErrorMap(this.context).get(String.valueOf(validatePassword));
@@ -96,7 +94,7 @@ public class LoginPresenter implements IValidateAccount.IPresenter{
             idOut = Error.PASSMINLENGTH;
         else if (!(Password.matches(".*" + p2 + ".*")))
             idOut = Error.PASSCASE;
-        else if (((Password.matches(".*" + p3 + ".*"))))
+        else if (!(Password.matches(".*" + p3 + ".*")))
             idOut = Error.PASSDIGIT;
 
         return idOut;

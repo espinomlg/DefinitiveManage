@@ -163,8 +163,8 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
     }
 
     public void startActivity(){
-        Intent i = new Intent(this, ManageProduct_Activity.class);
-        startActivity(i);
+        Intent intent = new Intent(this, ManageProduct_Activity.class);
+        startActivity(intent);
         finish();
     }
 }

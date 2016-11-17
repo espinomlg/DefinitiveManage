@@ -45,6 +45,7 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
     private ISignUp.View view;
     private Context context;
     private String nameIdMessage;
+    private String successful;
 
 
     public SignUpPresenter(ISignUp.View view){
@@ -58,11 +59,15 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
         validateUser = this.validateUser(username);
         validatePassword = this.validatePassword(pass);
         validateMail = this.validateEmail(mail);
+        successful = "successful";
+
 
         if(validateUser == Error.OK) {
             if (validatePassword == Error.OK) {
                 if (validateMail == Error.OK) {
                     //Guardamos las preferencias
+                    successful = ErrorMapUtils.getErrorMap(this.context).get(String.valueOf(0));
+                    view.setMessageError(successful, 0);
                     this.savePreferences(username, pass, mail);
                 }
                 else{

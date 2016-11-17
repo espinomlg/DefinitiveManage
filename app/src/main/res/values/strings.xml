@@ -5,11 +5,12 @@
     <string name="hint_pass">Password</string>
     <string name="cb_text">Remember me</string>
     <string name="hint_user">User</string>
+    <string name="successful">Signed Up Correctly</string>
     <string name="data_empty">Fields can not be empty</string>
     <string name="passCase">Password must contain at least one uppercase letter.</string>
     <string name="passDigit">Password must contain at least one digit</string>
     <string name="passMinLength">The password must be at least 8 characters long</string>
-    <string name="mail_invalid">The mail is not a mail valid</string>
+    <string name="mailInvalid">The mail is not a valid mail</string>
     <string name="add_name">Name</string>
     <string name="add_brand">Trademark</string>
     <string name="add_dosage">Dosage</string>
