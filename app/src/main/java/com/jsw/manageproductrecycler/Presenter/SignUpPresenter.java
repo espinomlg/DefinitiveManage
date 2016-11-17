@@ -39,6 +39,7 @@ import java.util.regex.Pattern;
 public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresenter{
 
 
+    //region Private Variables
     private int validateUser;
     private int validatePassword;
     private int validateMail;
@@ -46,14 +47,28 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
     private Context context;
     private String nameIdMessage;
     private String successful;
+    //endregion
 
 
+    /**
+     * Presenter Constructor.
+     * @param view View
+     */
     public SignUpPresenter(ISignUp.View view){
         this.view = view;
         this.context = (Context)view;
     }
 
 
+    /**
+     * Validate Credentials Method.
+     * Checks the user, the pass and the mail calling his own methods.
+     * On each case, it call the view with an ERRCode and a View.
+     * If it is correct View is 0.
+     * @param username Username String
+     * @param pass Password String
+     * @param mail Mail String
+     */
     public void validateCredentials(String username, String pass, String mail){
 
         validateUser = this.validateUser(username);
@@ -65,7 +80,6 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
         if(validateUser == Error.OK) {
             if (validatePassword == Error.OK) {
                 if (validateMail == Error.OK) {
-                    //Guardamos las preferencias
                     successful = ErrorMapUtils.getErrorMap(this.context).get(String.valueOf(0));
                     view.setMessageError(successful, 0);
                     this.savePreferences(username, pass, mail);
@@ -93,6 +107,12 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
         accountPrefs.putMail(email);
     }
 
+    /**
+     * Test email syntax failures.
+     * Use the android Email Pattern
+     * @param email Email String
+     * @return 0 if correct. ERRCode if invalid.
+     */
     @Override
     public int validateEmail(String email) {
         int result = 0;
@@ -103,6 +123,12 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
         return result;
     }
 
+    /**
+     * Test user syntax failures.
+     * Checks if user is null.
+     * @param User User String
+     * @return 0 if correct. ErrCode if invalid.
+     */
     @Override
     public int validateUser(String User) {
         int idOut = 0;
@@ -114,11 +140,21 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
         return idOut;
     }
 
+    /**
+     * Test password syntax failures.
+     * Checks:
+     * If is empty
+     * If haven't got one upper case at least
+     * If haven't got one digit at least
+     * If lenght is more than 8
+     * @param Password
+     * @return 0 if correct. ErrCode if invalid
+     */
     @Override
     public int validatePassword(String Password) {
         int idOut = 0;
 
-        if (Password.isEmpty())//If Password is null
+        if (Password.isEmpty())
             idOut = Error.DATAEMPTY;
         else if (!(Password.matches(".*" + p1 + ".*")))
             idOut = Error.PASSMINLENGTH;

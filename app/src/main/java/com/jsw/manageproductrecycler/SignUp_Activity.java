@@ -44,17 +44,19 @@ import java.util.regex.Pattern;
 
 public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
 
-    RadioGroup mRg;
-    EditText mEtEmpresa;
-    Spinner mSpnProvincia;
-    Spinner mSpnLocalidad;
-    TextInputLayout mTilMail;
-    TextInputLayout mTilUsername;
-    TextInputLayout mTilPassword;
+    //region Private Variables
+    private RadioGroup mRg;
+    private EditText mEtEmpresa;
+    private Spinner mSpnProvincia;
+    private Spinner mSpnLocalidad;
+    private TextInputLayout mTilMail;
+    private TextInputLayout mTilUsername;
+    private TextInputLayout mTilPassword;
     private SignUpPresenter mPresenter;
     private ViewGroup layout;
-
     private AdapterView.OnItemSelectedListener mSpinnerListener;
+    //endregion
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,10 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
         loadSpinnerProvincia();
     }
 
+    /**
+     * Setting adapter into "Provincia" Spinner.
+     * Getting data from "provincias.xml" array.
+     */
     private void loadSpinnerProvincia(){
 
         mSpinnerListener = new AdapterView.OnItemSelectedListener() {
@@ -104,12 +110,17 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
             }
         };
 
-        //Inicializar provincias
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.provincias, R.layout.support_simple_spinner_dropdown_item);
         mSpnProvincia.setOnItemSelectedListener(mSpinnerListener);
         mSpnProvincia.setAdapter(adapter);
         }
 
+
+    /**
+     * Setting adapter into "Localidad" Spinner.
+     * Getting data from typed array. {@link TypedArray}
+     * @param pos Position on mSpnProvincia spinner.
+     */
     private void cargarLocalidad(int pos){
         TypedArray aLocalidades = getResources().obtainTypedArray(R.array.array_provincia_a_localidades);
         CharSequence[] localidades = aLocalidades.getTextArray(pos);
@@ -119,8 +130,9 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
 
 
     /**
-     * {@link Resources#getIdentifier(String, String, String)}
-     * @param v
+     * Sign Up Method. SignUp button actions.
+     * Take text from view and send it to presenter
+     * @param v View from Button
      */
     public void registrarse(View v){
 
@@ -133,12 +145,23 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
         mPresenter.validateCredentials(username, pass, mail);
     }
 
+
+    /**
+     * Info method. Shows a Toast with Selected Item on Provincia Spinner
+     */
     public void verLocalidad(){
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.double_message,
                 mSpnProvincia.getSelectedItem(),
                 mSpnLocalidad.getSelectedItem().toString()), Toast.LENGTH_LONG).show();
     }
 
+
+    /**
+     * Set Message error into Viewa.
+     * Uses @link Resources#getIdentifier(String, String, String)}
+     * @param nameResource String name error on Errors.xml
+     * @param View View which have errors.
+     */
     @Override
     public void setMessageError(String nameResource, int View) {
 
@@ -162,6 +185,9 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
         }
     }
 
+    /**
+     * If imput text have no errors it starts activity.
+     */
     public void startActivity(){
         Intent intent = new Intent(this, ManageProduct_Activity.class);
         startActivity(intent);
