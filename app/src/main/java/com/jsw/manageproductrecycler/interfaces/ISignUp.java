@@ -29,14 +29,15 @@ public interface ISignUp extends IValidateAccount {
 
     interface IPresenterUser {
 
+        int validateEmail(String email);
 
-        static int validateEmail(String email){
+        /*static int validateEmail(String email){
             int result = 0;
 
             if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
                 result = Error.INVALID_MAIL;
 
             return 0;
-        }
+        }*/
     }
 }

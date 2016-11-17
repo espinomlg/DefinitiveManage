@@ -50,8 +50,8 @@ public class LoginPresenter implements IValidateAccount.IPresenter{
 
     public void validateCredentialsLogin(String user, String Password){
 
-        validateUser = IValidateAccount.IPresenter.validateUser(user);
-        validatePassword = IValidateAccount.IPresenter.validatePassword(Password);
+        validateUser = this.validateUser(user);
+        validatePassword = this.validatePassword(Password);
 
         if(validateUser == Error.OK) {
             if (validatePassword == Error.OK) {
@@ -60,7 +60,7 @@ public class LoginPresenter implements IValidateAccount.IPresenter{
                     desde las activitys los hacemos con view.startActivity
                  */
                 Intent i = new Intent(context, Login_Activity.class);
-                view.startActivity(i);
+                view.startActivity();
             }
             else{
                 String nameIdMessage = ErrorMapUtils.getErrorMap(this.context).get(String.valueOf(validatePassword));
@@ -75,4 +75,30 @@ public class LoginPresenter implements IValidateAccount.IPresenter{
 
     }
 
+    @Override
+    public int validateUser(String User) {
+        int idOut = 0;
+
+        if(User.isEmpty()) {//If User is null
+            idOut = Error.DATAEMPTY;
+        }
+
+        return idOut;
+    }
+
+    @Override
+    public int validatePassword(String Password) {
+        int idOut = 0;
+
+        if (Password.isEmpty())//If Password is null
+            idOut = Error.DATAEMPTY;
+        else if (!(Password.matches(".*" + p1 + ".*")))
+            idOut = Error.PASSMINLENGTH;
+        else if (!(Password.matches(".*" + p2 + ".*")))
+            idOut = Error.PASSCASE;
+        else if (((Password.matches(".*" + p3 + ".*"))))
+            idOut = Error.PASSDIGIT;
+
+        return idOut;
+    }
 }

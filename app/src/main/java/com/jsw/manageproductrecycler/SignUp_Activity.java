@@ -17,6 +17,7 @@ package com.jsw.manageproductrecycler;
  *  jose.gallardo994@gmail.com
  */
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.design.widget.Snackbar;
@@ -66,7 +67,7 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
         mTilMail = (TextInputLayout)findViewById(R.id.til_email);
         mTilUsername = (TextInputLayout)findViewById(R.id.til_username);
         mTilPassword = (TextInputLayout)findViewById(R.id.til_password2);
-        mPresenter = new SignUpPresenter();
+        mPresenter = new SignUpPresenter(this);
         layout = (ViewGroup)findViewById(R.id.activity_sign_up);
         mRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -117,28 +118,19 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
     }
 
 
-
-
-
+    /**
+     * {@link Resources#getIdentifier(String, String, String)}
+     * @param v
+     */
     public void registrarse(View v){
 
         //Recoger los datos de las vista y mandarlos al presentador.
 
+        String mail = mTilMail.getEditText().getText().toString();
+        String username = mTilUsername.getEditText().getText().toString();
+        String pass = mTilPassword.getEditText().getText().toString();
 
-        switch (validate()){
-            case 0:
-                Toast.makeText(this, "Registro OK", Toast.LENGTH_LONG).show();
-                break;
-            case 1:
-                mTilUsername.setError("User not valid");
-                break;
-            case 2:
-                mTilPassword.setError("Password not valid");
-                break;
-            case 3:
-                mTilMail.setError("Mail not valid");
-                break;
-        }
+        mPresenter.validateCredentials(username, pass, mail);
     }
 
     public void verLocalidad(){
@@ -150,7 +142,7 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
     @Override
     public void setMessageError(String nameResource, int View) {
 
-        String messageError = getResources().getString(getResources().getIdentifier(nameResource, "String", getPackageName()));
+        String messageError = getResources().getString(getResources().getIdentifier(nameResource, "string", getPackageName()));
 
         switch (View) {
             case R.id.til_user: //Incorrect user case
@@ -165,7 +157,14 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
                 Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
             case 0: //Correct Login
                 Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
+                startActivity();
                 break;
         }
+    }
+
+    public void startActivity(){
+        Intent i = new Intent(this, ManageProduct_Activity.class);
+        startActivity(i);
+        finish();
     }
 }

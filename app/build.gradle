@@ -5,16 +5,13 @@ android {
     buildToolsVersion "25"
     defaultConfig {
         applicationId 'com.jsw.ManageProductRecycler'
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Enabling multidex support.
         multiDexEnabled true
-        jackOptions {
-            enabled true
-        }
     }
     buildTypes {
         release {
@@ -23,10 +20,6 @@ android {
         }
     }
     productFlavors {
-    }
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
     }
 }
 

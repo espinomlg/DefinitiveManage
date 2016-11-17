@@ -33,7 +33,7 @@ public interface IValidateAccount {
 
     interface View{
         public void setMessageError(String error, int errCode);
-        public void startActivity(Intent i);
+        public void startActivity();
     }
 
     public interface IPresenter{
@@ -42,8 +42,10 @@ public interface IValidateAccount {
         Pattern p2 = Pattern.compile("[A-Z]");
         Pattern p3 = Pattern.compile("[0-9]");
 
+        int validateUser(String User);
+        int validatePassword(String Password);
 
-        static int validateUser(String User) {
+        /*static int validateUser(String User) {
             int idOut = 0;
 
             if(User.isEmpty()) {//If User is null
@@ -66,7 +68,7 @@ public interface IValidateAccount {
                 idOut = Error.PASSDIGIT;
 
             return idOut;
-        }
+        }*/
     }
 
 

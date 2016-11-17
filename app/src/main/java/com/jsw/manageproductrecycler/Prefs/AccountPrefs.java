@@ -37,7 +37,8 @@ public class AccountPrefs implements IPreferences {
     private  AccountPrefs(Context context){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
-    private static IPreferences getInstance(Context context){
+
+    public static IPreferences getInstance(Context context){
         if (accountPrefs == null) {
             accountPrefs = new AccountPrefs(context);
 

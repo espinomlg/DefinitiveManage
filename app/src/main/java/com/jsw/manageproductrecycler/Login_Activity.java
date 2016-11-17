@@ -116,19 +116,16 @@ public class Login_Activity extends AppCompatActivity implements IValidateAccoun
                 break;
             case 0: //Correct Login
                 Toast.makeText(this, messageError, Toast.LENGTH_SHORT).show();
-                logear();
+                startActivity();
                 break;
         }
     }
 
-    /**
-     * Open ManageProduct activity to show products when the login is correct.
-     */
-    private void logear(){
+    @Override
+    public void startActivity() {
         Intent intent = new Intent(this, ManageProduct_Activity.class);
         startActivity(intent);
         finish();
-
     }
 
     public void signUp(View v){

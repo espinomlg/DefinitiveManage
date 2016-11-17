@@ -45,9 +45,9 @@ public class Product_Application extends Application {
     }
 
     public void OrderAlph(boolean order){
-        if(order)
-            Collections.sort(products, (p1, p2) -> p1.getmName().compareTo(p2.getmName()));
-        else
-            Collections.sort(products, (p1, p2) -> p2.getmName().compareTo(p1.getmName()));
+        //if(order)
+            //Collections.sort(products, (p1, p2) -> p1.getmName().compareTo(p2.getmName()));
+        //else
+            //Collections.sort(products, (p1, p2) -> p2.getmName().compareTo(p1.getmName()));
     }
 }

@@ -25,5 +25,5 @@ import android.content.Context;
 
 public interface IPreferences {
     public static final int MODE = Context.MODE_PRIVATE;
-
+    //static IPreferences getInstance(Context context){};
 }
