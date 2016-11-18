@@ -85,13 +85,6 @@ public class Login_Activity extends AppCompatActivity implements IValidateAccoun
             }
         });
 
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLoginMVP.validateCredentialsLogin(mETUser.getText().toString(), mETPassword.getText().toString());
-            }
-        });
-
         //endregion
 
     }
@@ -119,6 +112,10 @@ public class Login_Activity extends AppCompatActivity implements IValidateAccoun
                 startActivity();
                 break;
         }
+    }
+
+    public void logear(View v){
+        mLoginMVP.validateCredentialsLogin(mETUser.getText().toString(), mETPassword.getText().toString());
     }
 
     @Override

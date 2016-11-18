@@ -6,6 +6,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.jsw.manageproductrecycler.interfaces.IProduct;
+
 public class AddProduct_Activity extends AppCompatActivity {
 
     TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription;
@@ -21,11 +23,16 @@ public class AddProduct_Activity extends AppCompatActivity {
         mPrice = (TextInputLayout) findViewById(R.id.til_price);
         mDescription = (TextInputLayout) findViewById(R.id.til_descripcion);
 
+        if(getIntent().getExtras().getSerializable(IProduct.PRODUCT_KEY) == IProduct.ADD_PRODUCT){
+
+        }
+
+        else
+            edit();
     }
 
     public void guardar(View v){
         Intent intent = getIntent();
-
         intent.putExtra("Name", mName.getEditText().getText().toString());
         intent.putExtra("Trademark", mTrademark.getEditText().getText().toString());
         intent.putExtra("Dosage", mDosage.getEditText().getText().toString());
@@ -35,5 +42,9 @@ public class AddProduct_Activity extends AppCompatActivity {
 
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    public void edit(){
+
     }
 }

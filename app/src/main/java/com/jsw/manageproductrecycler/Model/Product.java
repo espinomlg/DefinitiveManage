@@ -1,12 +1,14 @@
 package com.jsw.manageproductrecycler.Model;
 
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
  * Created by usuario on 19/10/16.
  */
 
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product>, Serializable{
     private int mId;
     private String mStock;
     private int mImage;
@@ -154,4 +156,11 @@ public class Product implements Comparable<Product>{
         else
            return this.getmName().compareTo(product.getmName());
     }
+
+    public static final Comparator<Product> NAME_COMPARATOR = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return p1.getmName().compareTo(p2.getmName());
+        }
+    };
 }

@@ -10,11 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".SplashScreen_Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Login_Activity"
@@ -31,7 +26,16 @@
         <activity
             android:name=".Settings.GeneralSettings"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SignUp_Activity"></activity>
+        <activity
+            android:name=".SignUp_Activity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ListProduct_Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
