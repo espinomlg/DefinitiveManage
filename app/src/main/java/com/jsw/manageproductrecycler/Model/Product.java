@@ -1,8 +1,12 @@
 package com.jsw.manageproductrecycler.Model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by usuario on 19/10/16.
@@ -133,20 +137,24 @@ public class Product implements Comparable<Product>, Serializable{
      */
     @Override
     public boolean equals(Object o) {
-        boolean res = false;
+        boolean result = false;
+        Product p;
 
-        //Upcast
-        if(this != o || o == null || getClass() != o.getClass())
-            res = false;
-        else{
-            //Downcast
-            Product product = (Product) o;
+        if(o != null){
 
-            if (mName.equals(product.mName) && mDosage.equals(product.mDosage) && mBrandM.equals(product.mBrandM))
-                res = true;
+            if(o instanceof Product){
+
+                p = (Product)o;
+
+                if(this.mName.equals(p.mName) && this.mDosage.equals(p.mDosage) && this.mBrandM.equals(p.mBrandM)){
+
+                    result = true;
+                }
+            }
+
         }
 
-        return res;
+        return result;
     }
 
     @Override

@@ -33,7 +33,12 @@ public class AddProduct_Activity extends AppCompatActivity {
         mStock = (TextInputLayout) findViewById(R.id.til_stock);
         mPrice = (TextInputLayout) findViewById(R.id.til_price);
         mDescription = (TextInputLayout) findViewById(R.id.til_descripcion);
-        p = (Product)getIntent().getExtras().getSerializable(PRODUCT_KEY);
+        try{
+            p = (Product)getIntent().getExtras().getSerializable(PRODUCT_KEY); //ORIGGINAL
+        }catch (Exception e){
+
+        }
+
 
         if(p != null){
             mImage.setImageResource(p.getmImage());
@@ -47,10 +52,11 @@ public class AddProduct_Activity extends AppCompatActivity {
     }
 
     public void guardar(View v){
+
         Intent intent = getIntent();
         intent.putExtra(PRODUCT_KEY, p);
         intent.putExtra(EDITED_KEY, new Product(
-                        p.getmImage(),
+                        R.drawable.pastilla,
                         mName.getEditText().getText().toString(),
                         mTrademark.getEditText().getText().toString(),
                         mDosage.getEditText().getText().toString(),

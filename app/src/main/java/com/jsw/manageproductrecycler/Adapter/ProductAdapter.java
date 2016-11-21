@@ -110,6 +110,11 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         notifyDataSetChanged();
     }
 
+    public void deleteProduct(Product product){
+        remove(product);
+        notifyDataSetChanged();
+    }
+
     class ProductHolder{
         ImageView img;
         TextView name;

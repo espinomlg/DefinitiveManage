@@ -20,6 +20,11 @@ package com.jsw.manageproductrecycler;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -35,6 +40,9 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
     private ProductAdapter mAdapter;
     private ListView mList;
     int position;
+    PopupMenu popup;
+    //Inflating the Popup using xml file
+
 
 
     @Override
@@ -44,6 +52,7 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
         mList = (ListView) findViewById(R.id.listProduct);
         mAdapter = new ProductAdapter(this);
         mList.setAdapter(mAdapter);
+
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,6 +65,27 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
                 startActivityForResult(intent, EDIT_PRODUCT);
             }
         });
+
+        mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final AdapterView<?> parent = adapterView;
+                final int pos = i;
+
+                popup  = new PopupMenu(ListProduct_Activity.this, view);
+                popup.setGravity(Gravity.RIGHT);
+                popup.getMenuInflater().inflate(R.menu.delete_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        mAdapter.deleteProduct((Product) parent.getItemAtPosition(pos));
+                        return true;
+                    }
+                });
+                popup.show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -63,7 +93,7 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
         switch (requestCode) {
             case ADD_PRODUCT:
                 if (resultCode == RESULT_OK) {
-                    Product product = (Product) data.getExtras().getSerializable(PRODUCT_KEY);
+                    Product product = (Product) data.getExtras().getSerializable(EDITED_KEY);
                     mAdapter.addProduct(product);
                 }
                 break;
@@ -74,5 +104,10 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
 
                 }
         }
+    }
+
+    public void añadir(View v){
+        Intent intent = new Intent(ListProduct_Activity.this, AddProduct_Activity.class);
+        startActivityForResult(intent, ADD_PRODUCT);
     }
 }

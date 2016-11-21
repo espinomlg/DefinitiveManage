@@ -16,6 +16,12 @@
    jose.gallardo994@gmail.com
   -->
 
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_list_product"
@@ -34,3 +40,20 @@
 
     </ListView>
 </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="añadir"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:id="@+id/fab_añadir"
+        app:backgroundTint="?attr/colorPrimaryDark"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/activity_list_product"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_gravity="top|left"
+        app:useCompatPadding="true"/>
+
+</android.support.design.widget.CoordinatorLayout>
