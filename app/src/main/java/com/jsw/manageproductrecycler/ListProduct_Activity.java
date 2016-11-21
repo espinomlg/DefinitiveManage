@@ -30,17 +30,18 @@ import com.jsw.manageproductrecycler.interfaces.IProduct;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class ListProduct_Activity extends AppCompatActivity implements IProduct{
+public class ListProduct_Activity extends AppCompatActivity implements IProduct {
 
     private ProductAdapter mAdapter;
     private ListView mList;
+    int position;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_product);
-        mList = (ListView)findViewById(R.id.listProduct);
+        mList = (ListView) findViewById(R.id.listProduct);
         mAdapter = new ProductAdapter(this);
         mList.setAdapter(mAdapter);
 
@@ -48,7 +49,8 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(PRODUCT_KEY, (Product)parent.getItemAtPosition(i));
+                bundle.putSerializable(PRODUCT_KEY, (Product) parent.getItemAtPosition(i));
+                position = i;
                 Intent intent = new Intent(ListProduct_Activity.this, AddProduct_Activity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, EDIT_PRODUCT);
@@ -58,18 +60,19 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case ADD_PRODUCT:
-                if(resultCode == RESULT_OK) {
-                    Product product = (Product)data.getExtras().getSerializable(PRODUCT_KEY);
+                if (resultCode == RESULT_OK) {
+                    Product product = (Product) data.getExtras().getSerializable(PRODUCT_KEY);
                     mAdapter.addProduct(product);
                 }
                 break;
             case EDIT_PRODUCT:
-                if (resultCode == RESULT_OK){
-                    ///EDITO
+                if (resultCode == RESULT_OK) {
+                    mAdapter.removeProduct((Product)data.getExtras().getSerializable(PRODUCT_KEY));
+                    mAdapter.addAt((Product)data.getExtras().getSerializable(EDITED_KEY), position);
+
                 }
-            }
         }
     }
 }

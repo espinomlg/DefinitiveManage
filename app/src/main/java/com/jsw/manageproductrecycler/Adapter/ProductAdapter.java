@@ -100,6 +100,16 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         add(product);
     }
 
+    public void removeProduct(Product product){
+        remove(product);
+        notifyDataSetChanged();
+    }
+
+    public void addAt(Product product, int position){
+        insert(product, position);
+        notifyDataSetChanged();
+    }
+
     class ProductHolder{
         ImageView img;
         TextView name;

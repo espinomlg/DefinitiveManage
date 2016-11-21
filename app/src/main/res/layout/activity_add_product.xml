@@ -68,15 +68,6 @@
             android:hint="@string/add_dosage" />
     </android.support.design.widget.TextInputLayout>
 
-    <ImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        android:id="@+id/ib_imagen"
-        android:layout_alignBottom="@+id/til_dosage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,6 +109,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/add_description" />
     </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        android:id="@+id/ib_imagen"
+        android:layout_above="@+id/til_price"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

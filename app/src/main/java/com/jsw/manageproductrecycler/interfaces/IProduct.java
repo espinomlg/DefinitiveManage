@@ -23,6 +23,7 @@ package com.jsw.manageproductrecycler.interfaces;
 
 public interface IProduct {
     String PRODUCT_KEY = "productKey";
+    String EDITED_KEY = "editedKey";
     int ADD_PRODUCT = 0;
     int EDIT_PRODUCT = 1;
 }
