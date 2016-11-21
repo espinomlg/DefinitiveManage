@@ -17,6 +17,8 @@ package com.jsw.manageproductrecycler;
  *  jose.gallardo994@gmail.com
  */
 
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,13 +34,18 @@ import android.widget.ListView;
 import com.jsw.manageproductrecycler.Adapter.ProductAdapter;
 import com.jsw.manageproductrecycler.Model.Product;
 import com.jsw.manageproductrecycler.interfaces.IProduct;
+import com.jsw.manageproductrecycler.utils.DialogoConfirmacion;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class ListProduct_Activity extends AppCompatActivity implements IProduct {
 
+    public static Product p;
+
     private ProductAdapter mAdapter;
     private ListView mList;
+    private int mItemPos;
+    private AdapterView<?> mItemParent;
     int position;
     PopupMenu popup;
     //Inflating the Popup using xml file
@@ -69,8 +76,8 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
         mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final AdapterView<?> parent = adapterView;
-                final int pos = i;
+                mItemParent = adapterView;
+                mItemPos = i;
 
                 popup  = new PopupMenu(ListProduct_Activity.this, view);
                 popup.setGravity(Gravity.RIGHT);
@@ -78,7 +85,10 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        mAdapter.deleteProduct((Product) parent.getItemAtPosition(pos));
+                        p = (Product) mItemParent.getItemAtPosition(mItemPos);
+                        DialogoConfirmacion dialog = new DialogoConfirmacion();
+                        dialog.show(getFragmentManager(), "");
+
                         return true;
                     }
                 });
@@ -109,5 +119,9 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
     public void añadir(View v){
         Intent intent = new Intent(ListProduct_Activity.this, AddProduct_Activity.class);
         startActivityForResult(intent, ADD_PRODUCT);
+    }
+
+    public void borrar(){
+
     }
 }
