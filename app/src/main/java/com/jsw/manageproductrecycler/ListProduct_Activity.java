@@ -38,7 +38,7 @@ import com.jsw.manageproductrecycler.utils.DialogoConfirmacion;
 
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class ListProduct_Activity extends AppCompatActivity implements IProduct {
+public class ListProduct_Activity extends AppCompatActivity implements IProduct, DialogoConfirmacion.OnDeleteProductListener {
 
     public static Product p;
 
@@ -82,13 +82,16 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
                 popup  = new PopupMenu(ListProduct_Activity.this, view);
                 popup.setGravity(Gravity.RIGHT);
                 popup.getMenuInflater().inflate(R.menu.delete_menu, popup.getMenu());
+
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         p = (Product) mItemParent.getItemAtPosition(mItemPos);
                         DialogoConfirmacion dialog = new DialogoConfirmacion();
+                        Bundle zip = new Bundle();
+                        zip.putSerializable("product", p);
+                        dialog.setArguments(zip);
                         dialog.show(getFragmentManager(), "");
-
                         return true;
                     }
                 });
@@ -121,7 +124,8 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct 
         startActivityForResult(intent, ADD_PRODUCT);
     }
 
-    public void borrar(){
-
+    @Override
+    public void deleteObject(Product product) {
+        mAdapter.deleteProduct(product);
     }
 }

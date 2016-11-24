@@ -18,18 +18,25 @@ import com.jsw.manageproductrecycler.Presenter.LoginPresenter;
 
 public class DialogoConfirmacion extends DialogFragment {
 
+    public interface OnDeleteProductListener{
+        void deleteObject(Product product);
+    }
+
+    Product p;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
+        p = (Product)getArguments().getSerializable("product");
+        return crear(p.getmName());
+    }
 
+    public Dialog crear(String name){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        builder.setMessage("¿Desea eliminar el elemento?")
+        builder.setMessage("¿Desea eliminar el elemento " + name + "?")
                 .setTitle("Confirmación")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        ProductAdapter p = new ProductAdapter(getActivity().getApplicationContext());
-                        p.deleteProduct(ListProduct_Activity.p);
+                        ((OnDeleteProductListener)getActivity()).deleteObject(p);
                         dialog.cancel();
                     }
                 })
