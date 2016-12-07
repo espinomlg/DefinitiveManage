@@ -1,4 +1,4 @@
-package com.jsw.manageproductrecycler.Prefs;
+package com.jsw.manageproductrecycler;
 
 /*
  * Copyright (c) 2016 José Luis del Pino Gallardo.
@@ -17,9 +17,14 @@ package com.jsw.manageproductrecycler.Prefs;
  *  jose.gallardo994@gmail.com
  */
 
-/**
- * Created by usuario on 10/11/16.
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class GeneralPrefs {
+public class Home_Activity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+    }
 }

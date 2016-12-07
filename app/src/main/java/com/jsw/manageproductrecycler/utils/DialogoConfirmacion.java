@@ -5,12 +5,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.AdapterView;
 
-import com.jsw.manageproductrecycler.Adapter.ProductAdapter;
-import com.jsw.manageproductrecycler.ListProduct_Activity;
 import com.jsw.manageproductrecycler.Model.Product;
-import com.jsw.manageproductrecycler.Presenter.LoginPresenter;
 
 /**
  * Created by usuario on 21/11/16.
@@ -25,7 +21,7 @@ public class DialogoConfirmacion extends DialogFragment {
     Product p;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        p = (Product)getArguments().getSerializable("product");
+        p = (Product)getArguments().getParcelable("product");
         return crear(p.getmName());
     }
 

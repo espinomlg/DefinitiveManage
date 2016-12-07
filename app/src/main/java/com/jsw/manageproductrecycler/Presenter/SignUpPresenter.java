@@ -18,19 +18,13 @@ package com.jsw.manageproductrecycler.Presenter;
  */
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Patterns;
 
-import com.jsw.manageproductrecycler.Login_Activity;
 import com.jsw.manageproductrecycler.Model.Error;
-import com.jsw.manageproductrecycler.Prefs.AccountPrefs;
+import com.jsw.manageproductrecycler.Prefs.AccountPrefsImpl;
 import com.jsw.manageproductrecycler.R;
 import com.jsw.manageproductrecycler.interfaces.ISignUp;
-import com.jsw.manageproductrecycler.interfaces.IValidateAccount;
 import com.jsw.manageproductrecycler.utils.ErrorMapUtils;
-
-import java.util.regex.Pattern;
 
 /**
  * Created by usuario on 16/11/16.
@@ -101,7 +95,7 @@ public class SignUpPresenter implements ISignUp.IPresenterUser, ISignUp.IPresent
     }
 
     private void savePreferences(String user, String password, String email){
-        AccountPrefs accountPrefs = (AccountPrefs)AccountPrefs.getInstance(this.context);
+        AccountPrefsImpl accountPrefs = (AccountPrefsImpl) AccountPrefsImpl.getInstance(this.context);
         accountPrefs.putUser(user);
         accountPrefs.putPassword(password);
         accountPrefs.putMail(email);

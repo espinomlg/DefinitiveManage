@@ -1,5 +1,7 @@
 package com.jsw.manageproductrecycler.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -12,7 +14,7 @@ import static android.content.ContentValues.TAG;
  * Created by usuario on 19/10/16.
  */
 
-public class Product implements Comparable<Product>, Serializable{
+public class Product implements Comparable<Product>, Parcelable {
     private int mId;
     private String mStock;
     private int mImage;
@@ -43,6 +45,29 @@ public class Product implements Comparable<Product>, Serializable{
         this.mBrandM = Trademark;
         this.mPrice = Price;
     }
+
+    protected Product(Parcel in) {
+        mId = in.readInt();
+        mStock = in.readString();
+        mImage = in.readInt();
+        mName = in.readString();
+        mDescription = in.readString();
+        mDosage = in.readString();
+        mBrandM = in.readString();
+        mPrice = in.readDouble();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public int getmId() {
         return mId;
@@ -171,4 +196,21 @@ public class Product implements Comparable<Product>, Serializable{
             return p1.getmName().compareTo(p2.getmName());
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(mId);
+        parcel.writeString(mStock);
+        parcel.writeInt(mImage);
+        parcel.writeString(mName);
+        parcel.writeString(mDescription);
+        parcel.writeString(mDosage);
+        parcel.writeString(mBrandM);
+        parcel.writeDouble(mPrice);
+    }
 }

@@ -18,14 +18,11 @@ package com.jsw.manageproductrecycler;
  */
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,14 +30,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jsw.manageproductrecycler.Presenter.SignUpPresenter;
 import com.jsw.manageproductrecycler.interfaces.ISignUp;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
 
@@ -189,7 +182,7 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
      * If imput text have no errors it starts activity.
      */
     public void startActivity(){
-        Intent intent = new Intent(this, ManageProduct_Activity.class);
+        Intent intent = new Intent(this, RecyclerList_Activity.class);
         startActivity(intent);
         finish();
     }

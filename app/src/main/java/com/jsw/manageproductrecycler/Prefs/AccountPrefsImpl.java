@@ -27,20 +27,20 @@ import com.jsw.manageproductrecycler.interfaces.IPreferences;
  * Created by usuario on 10/11/16.
  */
 
-public class AccountPrefs implements IPreferences {
-    private static AccountPrefs accountPrefs;
+public class AccountPrefsImpl implements IPreferences {
+    private static AccountPrefsImpl accountPrefs;
     private static final String USER = "USER";
     private static final String PASSWORD = "PASSWORD";
     private static final String MAIL = "MAIL";
     private SharedPreferences sharedPreferences;
 
-    private  AccountPrefs(Context context){
+    private AccountPrefsImpl(Context context){
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public static IPreferences getInstance(Context context){
         if (accountPrefs == null) {
-            accountPrefs = new AccountPrefs(context);
+            accountPrefs = new AccountPrefsImpl(context);
 
         }
 

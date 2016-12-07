@@ -18,7 +18,7 @@ import com.jsw.manageproductrecycler.Settings.GeneralSettings;
 *
 * Para que android haga la vinculacion del xml con nuestra lista interna, es decir
 * que lo infle de forma automatica, tenemos que añadir al listview el id "android:id/list"*/
-public class ManageProduct_Activity extends AppCompatActivity {
+public class RecyclerList_Activity extends AppCompatActivity {
 
     private ReciclerAdapter mAdapter; //Adapter
     private RecyclerView mReciclerView; //Recycler View
@@ -31,7 +31,7 @@ public class ManageProduct_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_product);
+        setContentView(R.layout.activity_recycler_product);
         mAdapter = new ReciclerAdapter(this); //Add the adapter
         mReciclerView = (RecyclerView)findViewById(R.id.rv_vista); //View instance
         mReciclerView.setLayoutManager(new LinearLayoutManager(this)); //Set the layout manager with a linearlayout
@@ -97,7 +97,7 @@ public class ManageProduct_Activity extends AppCompatActivity {
      * @param v Button View
      */
     public void añadir(View v){
-        intent = new Intent(this, AddProduct_Activity.class);
+        intent = new Intent(this, AddProduct_Fragment.class);
         startActivityForResult(intent, 0);
     }
 }

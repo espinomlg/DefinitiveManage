@@ -17,15 +17,14 @@ package com.jsw.manageproductrecycler;
  *  jose.gallardo994@gmail.com
  */
 
-import android.app.DialogFragment;
-import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.view.ContextMenu;
+import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.MenuInflater;
+import android.view.InflateException;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,9 +35,9 @@ import com.jsw.manageproductrecycler.Model.Product;
 import com.jsw.manageproductrecycler.interfaces.IProduct;
 import com.jsw.manageproductrecycler.utils.DialogoConfirmacion;
 
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.zip.Inflater;
 
-public class ListProduct_Activity extends AppCompatActivity implements IProduct, DialogoConfirmacion.OnDeleteProductListener {
+public class ListProduct_Fragment extends AppCompatActivity implements IProduct, DialogoConfirmacion.OnDeleteProductListener {
 
     public static Product p;
 
@@ -48,14 +47,17 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct,
     private AdapterView<?> mItemParent;
     int position;
     PopupMenu popup;
-    //Inflating the Popup using xml file
+    private IListProductListener mCallback;
 
+    public interface IListProductListener{
+        void showManageProduct(Bundle bundle);
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_product);
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        super.onCreateView(parent, name, context, attrs);
+        setContentView(R.layout.fragment_list_product);
         mList = (ListView) findViewById(R.id.listProduct);
         mAdapter = new ProductAdapter(this);
         mList.setAdapter(mAdapter);
@@ -65,9 +67,9 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct,
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(PRODUCT_KEY, (Product) parent.getItemAtPosition(i));
+                bundle.putParcelable(PRODUCT_KEY, (Product) parent.getItemAtPosition(i));
                 position = i;
-                Intent intent = new Intent(ListProduct_Activity.this, AddProduct_Activity.class);
+                Intent intent = new Intent(ListProduct_Fragment.this, AddProduct_Fragment.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, EDIT_PRODUCT);
             }
@@ -79,7 +81,7 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct,
                 mItemParent = adapterView;
                 mItemPos = i;
 
-                popup  = new PopupMenu(ListProduct_Activity.this, view);
+                popup  = new PopupMenu(ListProduct_Fragment.this, view);
                 popup.setGravity(Gravity.RIGHT);
                 popup.getMenuInflater().inflate(R.menu.delete_menu, popup.getMenu());
 
@@ -89,7 +91,7 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct,
                         p = (Product) mItemParent.getItemAtPosition(mItemPos);
                         DialogoConfirmacion dialog = new DialogoConfirmacion();
                         Bundle zip = new Bundle();
-                        zip.putSerializable("product", p);
+                        zip.putParcelable("product", p);
                         dialog.setArguments(zip);
                         dialog.show(getFragmentManager(), "");
                         return true;
@@ -106,21 +108,21 @@ public class ListProduct_Activity extends AppCompatActivity implements IProduct,
         switch (requestCode) {
             case ADD_PRODUCT:
                 if (resultCode == RESULT_OK) {
-                    Product product = (Product) data.getExtras().getSerializable(EDITED_KEY);
+                    Product product = (Product) data.getExtras().getParcelable(EDITED_KEY);
                     mAdapter.addProduct(product);
                 }
                 break;
             case EDIT_PRODUCT:
                 if (resultCode == RESULT_OK) {
-                    mAdapter.removeProduct((Product)data.getExtras().getSerializable(PRODUCT_KEY));
-                    mAdapter.addAt((Product)data.getExtras().getSerializable(EDITED_KEY), position);
+                    mAdapter.removeProduct((Product)data.getExtras().getParcelable(PRODUCT_KEY));
+                    mAdapter.addAt((Product)data.getExtras().getParcelable(EDITED_KEY), position);
 
                 }
         }
     }
 
     public void añadir(View v){
-        Intent intent = new Intent(ListProduct_Activity.this, AddProduct_Activity.class);
+        Intent intent = new Intent(ListProduct_Fragment.this, AddProduct_Fragment.class);
         startActivityForResult(intent, ADD_PRODUCT);
     }
 
