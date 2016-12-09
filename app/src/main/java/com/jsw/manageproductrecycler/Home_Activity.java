@@ -17,14 +17,40 @@ package com.jsw.manageproductrecycler;
  *  jose.gallardo994@gmail.com
  */
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ShowableListMenu;
+import android.view.Menu;
 
-public class Home_Activity extends AppCompatActivity {
+public class Home_Activity extends AppCompatActivity implements ListProduct_Fragment.IListProductListener {
+
+    private ListProduct_Fragment mListProduct;
+    private ManageProduct_Fragment mManageProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mListProduct = new ListProduct_Fragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_frameHome, mListProduct).commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_listproduct, menu);
+        super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+
+    @Override
+    public void showManageProduct(Bundle bundle) {
+        mManageProduct = new ManageProduct_Fragment(bundle);
+        FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
+        fr.replace(R.id.fl_frameHome, mListProduct);
+        fr.addToBackStack(null);
+        fr.commit();
     }
 }

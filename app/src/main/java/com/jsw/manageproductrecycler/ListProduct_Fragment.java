@@ -19,25 +19,34 @@ package com.jsw.manageproductrecycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
+import android.view.ContextMenu;
 import android.view.Gravity;
-import android.view.InflateException;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jsw.manageproductrecycler.Adapter.ProductAdapter;
 import com.jsw.manageproductrecycler.Model.Product;
+import com.jsw.manageproductrecycler.Presenter.ProductPresenter;
 import com.jsw.manageproductrecycler.interfaces.IProduct;
+import com.jsw.manageproductrecycler.interfaces.IProductPresenter;
 import com.jsw.manageproductrecycler.utils.DialogoConfirmacion;
 
-import java.util.zip.Inflater;
+import java.util.List;
 
-public class ListProduct_Fragment extends AppCompatActivity implements IProduct, DialogoConfirmacion.OnDeleteProductListener {
+public class ListProduct_Fragment extends ListFragment implements IProduct, ProductPresenter.View{
 
     public static Product p;
 
@@ -45,33 +54,46 @@ public class ListProduct_Fragment extends AppCompatActivity implements IProduct,
     private ListView mList;
     private int mItemPos;
     private AdapterView<?> mItemParent;
-    int position;
+    private TextView mEmpty;
     PopupMenu popup;
+    private IProductPresenter mPresenter;
+
     private IListProductListener mCallback;
 
     public interface IListProductListener{
         void showManageProduct(Bundle bundle);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstance){
+        super.onCreate(savedInstance);
+        mAdapter = new ProductAdapter(getContext());
+        mPresenter = new ProductPresenter(this);
+        setRetainInstance(true);
+
+
+        /**
+         * Esta opcion le dice a la actitivity que este fragment tiene su propio menu y llama a todos
+         * los métodos de los fragments.
+         */
+        setHasOptionsMenu(true);
+    }
 
     @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        super.onCreateView(parent, name, context, attrs);
-        setContentView(R.layout.fragment_list_product);
-        mList = (ListView) findViewById(R.id.listProduct);
-        mAdapter = new ProductAdapter(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle args) {
+        super.onCreateView(inflater, container,  args);
+        View rootView = inflater.inflate(R.layout.fragment_list_product, container, false);
+        mList = getListView();
+        mEmpty = (TextView)rootView.findViewById(android.R.id.empty);
         mList.setAdapter(mAdapter);
 
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(PRODUCT_KEY, (Product) parent.getItemAtPosition(i));
-                position = i;
-                Intent intent = new Intent(ListProduct_Fragment.this, AddProduct_Fragment.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, EDIT_PRODUCT);
+                Bundle potatoe = new Bundle();
+                potatoe.putParcelable(PRODUCT_KEY, (Product) parent.getItemAtPosition(i));
+                mCallback.showManageProduct(potatoe);
             }
         });
 
@@ -81,8 +103,8 @@ public class ListProduct_Fragment extends AppCompatActivity implements IProduct,
                 mItemParent = adapterView;
                 mItemPos = i;
 
-                popup  = new PopupMenu(ListProduct_Fragment.this, view);
-                popup.setGravity(Gravity.RIGHT);
+                popup  = new PopupMenu(getContext(), view);
+                popup.setGravity(Gravity.END);
                 popup.getMenuInflater().inflate(R.menu.delete_menu, popup.getMenu());
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -92,8 +114,9 @@ public class ListProduct_Fragment extends AppCompatActivity implements IProduct,
                         DialogoConfirmacion dialog = new DialogoConfirmacion();
                         Bundle zip = new Bundle();
                         zip.putParcelable("product", p);
+                        dialog.setPresenter((ProductPresenter) mPresenter);
                         dialog.setArguments(zip);
-                        dialog.show(getFragmentManager(), "");
+                        dialog.show(getActivity().getFragmentManager(), "");
                         return true;
                     }
                 });
@@ -101,33 +124,42 @@ public class ListProduct_Fragment extends AppCompatActivity implements IProduct,
                 return true;
             }
         });
+
+        return rootView;
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case ADD_PRODUCT:
-                if (resultCode == RESULT_OK) {
-                    Product product = (Product) data.getExtras().getParcelable(EDITED_KEY);
-                    mAdapter.addProduct(product);
-                }
-                break;
-            case EDIT_PRODUCT:
-                if (resultCode == RESULT_OK) {
-                    mAdapter.removeProduct((Product)data.getExtras().getParcelable(PRODUCT_KEY));
-                    mAdapter.addAt((Product)data.getExtras().getParcelable(EDITED_KEY), position);
-
-                }
-        }
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_listproduct, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
+
 
     public void añadir(View v){
-        Intent intent = new Intent(ListProduct_Fragment.this, AddProduct_Fragment.class);
-        startActivityForResult(intent, ADD_PRODUCT);
+       mCallback.showManageProduct(null);
+    }
+
+    public void showProduct(List<Product> products){
+        mAdapter.updateListProduct();
+    }
+
+    private  void hideList(boolean hide){
+        mList.setVisibility(hide ? View.VISIBLE : View.GONE);
+        mEmpty.setVisibility(hide ? View.VISIBLE : View.GONE);
+    }
+
+    public void showEmptyState(boolean show){
+        hideList(show);
+    }
+
+    public void showMessage(String message){
+
     }
 
     @Override
-    public void deleteObject(Product product) {
-        mAdapter.deleteProduct(product);
+    public void onDestroy(){
+        super.onDestroy();
+        mAdapter = null;
+        mPresenter = null;
     }
 }

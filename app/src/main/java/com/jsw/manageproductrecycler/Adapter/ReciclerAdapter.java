@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jsw.manageproductrecycler.Model.Product;
-import com.jsw.manageproductrecycler.Product_Application;
 import com.jsw.manageproductrecycler.R;
 
 import java.util.ArrayList;
@@ -30,12 +29,12 @@ public class ReciclerAdapter extends RecyclerView.Adapter<ReciclerAdapter.Produc
 
     public ReciclerAdapter(Context context) {
         this.context = context;
-        products = new ArrayList<Product>(((Product_Application) context.getApplicationContext()).getProducts());
+        products = new ArrayList<Product>(((Product_Repository) context.getApplicationContext()).getProducts());
     }
 
     public void addProduct(Product product){
-        ((Product_Application) context.getApplicationContext()).add(product);
-        updateView(((Product_Application) context.getApplicationContext()).getProducts());
+        ((Product_Repository) context.getApplicationContext()).add(product);
+        updateView(((Product_Repository) context.getApplicationContext()).getProducts());
     }
 
 
@@ -87,7 +86,7 @@ public class ReciclerAdapter extends RecyclerView.Adapter<ReciclerAdapter.Produc
 
     public void sortProducts(){
         ASC = !ASC;
-        ((Product_Application) context.getApplicationContext()).OrderAlph(ASC);
-        updateView(((Product_Application) context.getApplicationContext()).getProducts());
+        ((Product_Repository) context.getApplicationContext()).OrderAlph(ASC);
+        updateView(((Product_Repository) context.getApplicationContext()).getProducts());
     }
 }

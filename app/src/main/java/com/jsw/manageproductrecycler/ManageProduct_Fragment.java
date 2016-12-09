@@ -11,15 +11,17 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.jsw.manageproductrecycler.Model.Product;
+import com.jsw.manageproductrecycler.Presenter.ProductPresenter;
 
 import static com.jsw.manageproductrecycler.interfaces.IProduct.EDITED_KEY;
 import static com.jsw.manageproductrecycler.interfaces.IProduct.PRODUCT_KEY;
 
-public class AddProduct_Fragment extends Fragment {
+public class ManageProduct_Fragment extends Fragment {
 
     TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription;
     ImageButton mImage;
     Product p;
+    ProductPresenter mPresenter;
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {

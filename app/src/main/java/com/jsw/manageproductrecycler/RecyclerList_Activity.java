@@ -40,7 +40,7 @@ public class RecyclerList_Activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.product_menu, menu);
+        getMenuInflater().inflate(R.menu.home_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -97,7 +97,7 @@ public class RecyclerList_Activity extends AppCompatActivity {
      * @param v Button View
      */
     public void añadir(View v){
-        intent = new Intent(this, AddProduct_Fragment.class);
+        intent = new Intent(this, ManageProduct_Fragment.class);
         startActivityForResult(intent, 0);
     }
 }
