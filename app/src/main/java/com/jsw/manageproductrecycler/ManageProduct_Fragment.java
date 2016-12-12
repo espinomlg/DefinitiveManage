@@ -7,7 +7,9 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.jsw.manageproductrecycler.Model.Product;
@@ -24,17 +26,18 @@ public class ManageProduct_Fragment extends Fragment {
     ProductPresenter mPresenter;
 
     @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        super.onCreateView(parent, name, context, attrs);
-        mImage = (ImageButton) findViewById(R.id.ib_imagen);
-        mName = (TextInputLayout) findViewById(R.id.til_nombre);
-        mTrademark = (TextInputLayout) findViewById(R.id.til_marca);
-        mDosage = (TextInputLayout) findViewById(R.id.til_dosage);
-        mStock = (TextInputLayout) findViewById(R.id.til_stock);
-        mPrice = (TextInputLayout) findViewById(R.id.til_price);
-        mDescription = (TextInputLayout) findViewById(R.id.til_descripcion);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle args) {
+        super.onCreateView(inflater, container,  args);
+        View rootView = inflater.inflate(R.layout.fragment_add_product, container, false);
+        mImage = (ImageButton) rootView.findViewById(R.id.ib_imagen);
+        mName = (TextInputLayout) rootView.findViewById(R.id.til_nombre);
+        mTrademark = (TextInputLayout) rootView.findViewById(R.id.til_marca);
+        mDosage = (TextInputLayout) rootView.findViewById(R.id.til_dosage);
+        mStock = (TextInputLayout) rootView.findViewById(R.id.til_stock);
+        mPrice = (TextInputLayout) rootView.findViewById(R.id.til_price);
+        mDescription = (TextInputLayout) rootView.findViewById(R.id.til_descripcion);
         try{
-            p = (Product)getIntent().getExtras().getParcelable(PRODUCT_KEY); //ORIGGINAL
+            p = (Product)args.getParcelable(PRODUCT_KEY); //ORIGINAL
         }catch (Exception e){
 
         }
@@ -49,9 +52,11 @@ public class ManageProduct_Fragment extends Fragment {
             mPrice.getEditText().setText(String.valueOf(p.getmPrice()));
             mDescription.getEditText().setText(p.getmDescription());
         }
+
+        return rootView;
     }
 
-    public void guardar(View v){
+    /*public void guardar(View v){
 
         Intent intent = getIntent();
         intent.putExtra(PRODUCT_KEY, p);
@@ -66,5 +71,5 @@ public class ManageProduct_Fragment extends Fragment {
 
         setResult(RESULT_OK, intent);
         finish();
-    }
+    }*/
 }

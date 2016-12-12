@@ -26,7 +26,7 @@ import java.util.List;
  * Created by usuario on 9/12/16.
  */
 public class ProductRepository {
-    private ArrayList<Product> products;
+    private static ArrayList<Product> products;
 
     private static ProductRepository ourInstance = new ProductRepository();
 
@@ -54,22 +54,22 @@ public class ProductRepository {
         products.add(new Product(R.drawable.diazepam, "Diazepam", "Bayern", "1gr", "200", 45.70, "Pastillas Tranquilizantes"));
     }
 
-    public void add(Product p){
-        this.products.add(p);
+    public static void add(Product p){
+        products.add(p);
     }
 
-    public List<Product> getProducts(){
+    public static List<Product> getProducts(){
         return products;
     }
 
-    public void OrderAlph(boolean order){
+    public static void OrderAlph(boolean order){
         //if(order)
         //Collections.sort(products, (p1, p2) -> p1.getmName().compareTo(p2.getmName()));
         //else
         //Collections.sort(products, (p1, p2) -> p2.getmName().compareTo(p1.getmName()));
     }
 
-    public void deleteProduct(Product product){
+    public static void deleteProduct(Product product){
 
     }
 }

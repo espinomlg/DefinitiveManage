@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jsw.manageproductrecycler.Model.Product;
+import com.jsw.manageproductrecycler.ProductRepository;
 import com.jsw.manageproductrecycler.R;
 
 import java.util.Collections;
@@ -48,7 +49,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         //Para evitarlo o le hacemos un new ArayList (Lourdes) o a this le hacemos un addAll (Yo)
         super(context, R.layout.item_product);
         this.contexto = context;
-        this.addAll(((Product_Repository)context.getApplicationContext()).getProducts());
+        this.addAll(ProductRepository.getProducts());
     }
 
     @NonNull

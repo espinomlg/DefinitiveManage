@@ -139,8 +139,8 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
        mCallback.showManageProduct(null);
     }
 
-    public void showProduct(List<Product> products){
-        mAdapter.updateListProduct();
+    public void showProduct(List<Product> products) {
+        mAdapter.updateListProduct(products);
     }
 
     private  void hideList(boolean hide){
