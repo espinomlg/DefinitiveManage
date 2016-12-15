@@ -28,6 +28,9 @@
             android:name=".Settings.GeneralSettings"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".Home_Activity"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".SignUp_Activity"
             android:windowSoftInputMode="adjustPan" />
     </application>

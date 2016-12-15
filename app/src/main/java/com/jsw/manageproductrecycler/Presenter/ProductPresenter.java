@@ -50,9 +50,15 @@ public class ProductPresenter implements IProductPresenter{
     @Override
     public void deleteProduct(Product product) {
         repository.deleteProduct(product);
-
         //Vuelve a cargar los productos y actualiza los productos.
+        view.showMessage("Product Delete", product);
         loadProducts();
+    }
+
+
+    public void addProduct(Product product){
+        ProductRepository.add(product);
+        view.showProduct(ProductRepository.getProducts());
     }
 
     @Override

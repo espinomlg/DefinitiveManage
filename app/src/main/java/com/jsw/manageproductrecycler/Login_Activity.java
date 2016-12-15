@@ -116,14 +116,14 @@ public class Login_Activity extends AppCompatActivity implements IValidateAccoun
 
     public void logear(View v){
         //mLoginMVP.validateCredentialsLogin(mETUser.getText().toString(), mETPassword.getText().toString());
-        Intent intent = new Intent(this, ListProduct_Fragment.class);
+        Intent intent = new Intent(this, Home_Activity.class);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void startActivity() {
-        Intent intent = new Intent(this, RecyclerList_Activity.class);
+        Intent intent = new Intent(this, Home_Activity.class);
         startActivity(intent);
         finish();
     }

@@ -17,8 +17,11 @@ package com.jsw.manageproductrecycler;
  *  jose.gallardo994@gmail.com
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -57,6 +61,7 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
     private TextView mEmpty;
     PopupMenu popup;
     private IProductPresenter mPresenter;
+    private FloatingActionButton mFab;
 
     private IListProductListener mCallback;
 
@@ -81,11 +86,25 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle args) {
-        super.onCreateView(inflater, container,  args);
+        //super.onCreateView(inflater, container,  args);
         View rootView = inflater.inflate(R.layout.fragment_list_product, container, false);
-        mList = getListView();
         mEmpty = (TextView)rootView.findViewById(android.R.id.empty);
-        mList.setAdapter(mAdapter);
+        mFab = (FloatingActionButton)rootView.findViewById(R.id.fab_añadir);
+        return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_listproduct, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mList = getListView();
+        //mList.setAdapter(mAdapter);
+        setListAdapter(mAdapter);
 
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,18 +144,12 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
             }
         });
 
-        return rootView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_listproduct, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
-    public void añadir(View v){
-       mCallback.showManageProduct(null);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCallback.showManageProduct(null);
+            }
+        });
     }
 
     public void showProduct(List<Product> products) {
@@ -152,8 +165,14 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
         hideList(show);
     }
 
-    public void showMessage(String message){
-
+    public void showMessage(String message, final Product product){
+        Snackbar.make(getView(), "Producto Eliminado", Snackbar.LENGTH_LONG)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override //Aqui eliminamos si o si, si clicka en undo, volvemos a añadir.
+                    public void onClick(View view) {
+                        mPresenter.addProduct(product);
+                    }
+                }).show();
     }
 
     @Override
@@ -161,5 +180,11 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
         super.onDestroy();
         mAdapter = null;
         mPresenter = null;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallback = (IListProductListener)activity;
     }
 }

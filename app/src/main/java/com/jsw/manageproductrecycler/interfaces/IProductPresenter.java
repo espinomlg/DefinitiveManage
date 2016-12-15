@@ -30,6 +30,7 @@ import java.util.List;
 public interface IProductPresenter {
 
     void loadProducts();
+    void addProduct(Product p);
     Product getProduct(int id);
     void deleteProduct(Product product);
     void onDestroy();
@@ -37,6 +38,6 @@ public interface IProductPresenter {
     interface View{
         void showProduct(List<Product> products);
         void showEmptyState(boolean show);
-        void showMessage(String message);
+        void showMessage(String message, Product product);
     }
 }

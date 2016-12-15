@@ -36,20 +36,18 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/list">
+        android:id="@android:id/list"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@android:id/empty"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@android:id/empty"/>
-    </ListView>
 </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:onClick="añadir"
         app:srcCompat="@android:drawable/ic_menu_add"
         android:id="@+id/fab_añadir"
         app:backgroundTint="?attr/colorPrimaryDark"

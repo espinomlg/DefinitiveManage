@@ -55,7 +55,8 @@ public class ProductRepository {
     }
 
     public static void add(Product p){
-        products.add(p);
+        if(!products.contains(p))
+            products.add(p);
     }
 
     public static List<Product> getProducts(){
@@ -70,6 +71,6 @@ public class ProductRepository {
     }
 
     public static void deleteProduct(Product product){
-
+        products.remove(product);
     }
 }
