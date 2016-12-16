@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25"
     defaultConfig {
-        applicationId 'com.jsw.ManageProductRecycler'
+        applicationId 'com.jsw.MngProductFragments'
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
