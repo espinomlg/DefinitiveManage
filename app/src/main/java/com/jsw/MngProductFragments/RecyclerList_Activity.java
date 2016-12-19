@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jsw.MngProductFragments.Adapter.ReciclerAdapter;
+import com.jsw.MngProductFragments.Fragments.ManageProduct_Fragment;
 import com.jsw.MngProductFragments.Model.Product;
 import com.jsw.MngProductFragments.Settings.AccountSettings;
 import com.jsw.MngProductFragments.Settings.GeneralSettings;

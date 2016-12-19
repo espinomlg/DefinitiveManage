@@ -18,7 +18,7 @@ package com.jsw.MngProductFragments.Presenter;
  */
 
 import com.jsw.MngProductFragments.Model.Product;
-import com.jsw.MngProductFragments.ProductRepository;
+import com.jsw.MngProductFragments.DAO.ProductRepository;
 import com.jsw.MngProductFragments.interfaces.IProductPresenter;
 
 /**

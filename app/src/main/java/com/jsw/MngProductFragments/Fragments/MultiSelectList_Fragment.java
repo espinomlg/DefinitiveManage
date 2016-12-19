@@ -1,4 +1,5 @@
-package com.jsw.MngProductFragments;
+package com.jsw.MngProductFragments.Fragments;
+
 
 /*
  * Copyright (c) 2016 José Luis del Pino Gallardo.
@@ -17,29 +18,34 @@ package com.jsw.MngProductFragments;
  *  jose.gallardo994@gmail.com
  */
 
-import android.app.Activity;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ListFragment;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
-import android.view.Gravity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.jsw.MngProductFragments.Model.Product;
 import com.jsw.MngProductFragments.Adapter.ProductAdapter;
+import com.jsw.MngProductFragments.Model.Product;
 import com.jsw.MngProductFragments.Presenter.ProductPresenter;
+import com.jsw.MngProductFragments.R;
 import com.jsw.MngProductFragments.interfaces.IProduct;
+import com.jsw.MngProductFragments.interfaces.IProductPresenter;
+import com.jsw.MngProductFragments.utils.MultiChoiceListener;
 
-public class ListProduct_Fragment extends ListFragment implements IProduct, ProductPresenter.View{
+import java.util.List;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MultiSelectList_Fragment extends ListFragment implements IProduct, ProductPresenter.View {
+
 
     public static Product p;
 
@@ -49,21 +55,23 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
     private AdapterView<?> mItemParent;
     private TextView mEmpty;
     PopupMenu popup;
-    private FloatingActionButton mFab;
+    ProductPresenter mChoicePresenteR;
+    private IProductPresenter mPresenter;
 
     private IListProductListener mCallback;
 
-    public static ListProduct_Fragment getInstance(Bundle args){
-        ListProduct_Fragment f = new ListProduct_Fragment();
-        f.setArguments(args);
-        return  f;
+    public interface IListProductListener{
+        void showManageProduct(Bundle bundle);
     }
 
     @Override
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         mAdapter = new ProductAdapter(getContext());
+        mPresenter = new ProductPresenter(this);
+        mChoicePresenteR = new ProductPresenter(this);
         setRetainInstance(true);
+
 
         /**
          * Esta opcion le dice a la actitivity que este fragment tiene su propio menu y llama a todos
@@ -74,26 +82,20 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle args) {
-        //super.onCreateView(inflater, container,  args);
+        super.onCreateView(inflater, container, args);
         View rootView = inflater.inflate(R.layout.fragment_list_product, container, false);
         mEmpty = (TextView)rootView.findViewById(android.R.id.empty);
-        mFab = (FloatingActionButton)rootView.findViewById(R.id.fab_añadir);
-        return rootView;
-    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_listproduct, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        return rootView;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mList = getListView();
-        setListAdapter(mAdapter);
-
-
+        mList.setAdapter(mAdapter);
+        mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        final MultiChoiceListener mcl = new MultiChoiceListener(getContext(), mChoicePresenteR);
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -106,34 +108,24 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
         mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mItemParent = adapterView;
-                mItemPos = i;
-
-                popup  = new PopupMenu(getContext(), view);
-                popup.setGravity(Gravity.END);
-                popup.getMenuInflater().inflate(R.menu.delete_menu, popup.getMenu());
-
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        p = (Product) mItemParent.getItemAtPosition(mItemPos);
-                        mCallback.showDeletePopUp(p);
-                        return true;
-                    }
-                });
-                popup.show();
+                getListView().setItemChecked(i, mcl.isPosition(i));
                 return true;
-            }
-        });
-
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCallback.showManageProduct(null);
             }
         });
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_listproduct, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    public void añadir(View v){
+        mCallback.showManageProduct(null);
+    }
+
+    @Override
     public void showProduct() {
         mAdapter.updateListProduct();
     }
@@ -147,31 +139,16 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
         hideList(show);
     }
 
-    public void showMessage(String message, final Product product){
-        Snackbar.make(getView(), "Producto Eliminado", Snackbar.LENGTH_LONG)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override //Aqui eliminamos si o si, si clicka en undo, volvemos a añadir.
-                    public void onClick(View view) {
-                        mCallback.undoDeleting(product);
-                    }
-                }).show();
+    @Override
+    public void showMessage(String message, Product product) {
+
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         mAdapter = null;
+        mPresenter = null;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mCallback = (IListProductListener)activity;
-    }
-
-    public interface IListProductListener{
-        void showManageProduct(Bundle bundle);
-        void showDeletePopUp(Product product);
-        void undoDeleting(Product product);
-    }
 }

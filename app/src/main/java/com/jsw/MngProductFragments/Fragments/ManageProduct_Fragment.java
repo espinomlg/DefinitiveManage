@@ -1,4 +1,4 @@
-package com.jsw.MngProductFragments;
+package com.jsw.MngProductFragments.Fragments;
 
 /*
  * Copyright (c) 2016 José Luis del Pino Gallardo.
@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jsw.MngProductFragments.Model.Product;
+import com.jsw.MngProductFragments.R;
 import com.jsw.MngProductFragments.interfaces.IProduct;
 
 public class ManageProduct_Fragment extends Fragment {

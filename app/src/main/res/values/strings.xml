@@ -21,4 +21,7 @@
     <string name="action_general_settings">General Settings</string>
     <string name="action_account_settings">Account Settings</string>
     <string name="double_message">Ha seleccionado %1$s (%2$s)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

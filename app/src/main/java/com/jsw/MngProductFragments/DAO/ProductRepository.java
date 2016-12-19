@@ -1,4 +1,4 @@
-package com.jsw.MngProductFragments;
+package com.jsw.MngProductFragments.DAO;
 
 /*
  * Copyright (c) 2016 José Luis del Pino Gallardo.
@@ -18,6 +18,7 @@ package com.jsw.MngProductFragments;
  */
 
 import com.jsw.MngProductFragments.Model.Product;
+import com.jsw.MngProductFragments.R;
 
 import java.util.ArrayList;
 import java.util.List;

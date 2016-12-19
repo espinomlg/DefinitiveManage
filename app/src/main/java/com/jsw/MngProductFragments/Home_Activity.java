@@ -24,6 +24,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.widget.FrameLayout;
 
+import com.jsw.MngProductFragments.Fragments.ListProduct_Fragment;
+import com.jsw.MngProductFragments.Fragments.ManageProduct_Fragment;
 import com.jsw.MngProductFragments.Model.Product;
 import com.jsw.MngProductFragments.Presenter.ProductPresenter;
 import com.jsw.MngProductFragments.utils.DialogoConfirmacion;

@@ -27,7 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jsw.MngProductFragments.Model.Product;
-import com.jsw.MngProductFragments.ProductRepository;
+import com.jsw.MngProductFragments.DAO.ProductRepository;
 import com.jsw.MngProductFragments.R;
 
 import java.io.Serializable;
