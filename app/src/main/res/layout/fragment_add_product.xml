@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,21 +16,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jsw.MngProductFragments.Fragments.ManageProduct_Fragment">
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:onClick="guardar"
-        app:srcCompat="@android:drawable/ic_menu_save"
-        android:id="@+id/fab_guardar"
-        app:backgroundTint="?attr/colorPrimaryDark"
-        app:elevation="5dp"
-        android:layout_alignParentEnd="true"
-        app:fabSize="normal" />
+    tools:context="com.jsw.MngProductDatabase.Fragments.ManageProduct_Fragment">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -120,3 +113,20 @@
 
 
 </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="guardar"
+        app:layout_anchor="@+id/activity_add_product"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_gravity="top|start"
+        android:layout_margin="20dp"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        android:id="@+id/fab_guardar"
+        app:backgroundTint="?attr/colorPrimaryDark"
+        app:elevation="5dp"
+        app:fabSize="normal" />
+
+</android.support.design.widget.CoordinatorLayout>

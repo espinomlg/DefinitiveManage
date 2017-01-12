@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.jsw.MngProductFragments.SplashScreen_Activity"
+    tools:context="com.jsw.MngProductDatabase.SplashScreen_Activity"
     android:background="@color/minePrimaryDark"
     android:gravity="center">
 
