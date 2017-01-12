@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_product"
@@ -16,78 +16,134 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.jsw.MngProductDatabase.Fragments.ManageProduct_Fragment">
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/til_nombre"
-        android:layout_toEndOf="@+id/ib_imagen"
-        android:layout_toRightOf="@+id/ib_imagen">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
-        <EditText
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/add_name" />
+            android:id="@+id/til_nombre"
+            android:layout_weight="1">
 
-            </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_name" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/ib_imagen"
-        android:id="@+id/til_marca"
-        android:layout_below="@id/til_nombre">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/add_brand"
-            />
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ib_imagen"
+            android:id="@+id/til_marca"
+            android:layout_below="@id/til_nombre"
+            android:layout_weight="1">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/til_dosage"
-        android:layout_below="@+id/til_marca"
-        android:layout_toRightOf="@+id/ib_imagen"
-        android:layout_toEndOf="@+id/ib_imagen">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_brand"
+                />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
-        <EditText
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_dosage" />
-    </android.support.design.widget.TextInputLayout>
+            android:id="@+id/til_dosage"
+            android:layout_weight="1">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/til_stock"
-        android:layout_below="@id/ib_imagen"
-        android:layout_alignEnd="@id/ib_imagen"
-        android:layout_alignRight="@id/ib_imagen"
-        >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_dosage" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/add_stock" />
-    </android.support.design.widget.TextInputLayout>
+            android:id="@+id/til_stock"
+            android:layout_weight="1"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_stock" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/til_price"
-        android:layout_below="@id/til_dosage"
-        android:layout_toRightOf="@id/til_stock">
+        android:layout_weight="1">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_price" />
     </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spinner"
+            android:layout_weight="1" />
+
+        </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/til_imageurl"
+            android:layout_weight="1">
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ImageURL" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_weight="1"
+            android:src="@drawable/ic_content_paste_black_24dp"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+    </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -97,22 +153,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_description" />
     </android.support.design.widget.TextInputLayout>
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        android:id="@+id/ib_imagen"
-        android:layout_above="@+id/til_price"
-        android:layout_alignParentStart="true" />
 
-
-</RelativeLayout>
+</LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

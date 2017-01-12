@@ -32,6 +32,8 @@ import com.jsw.MngProductDatabase.Model.Product;
 import com.jsw.MngProductDatabase.R;
 import com.jsw.MngProductDatabase.interfaces.IProduct;
 
+import java.util.Random;
+
 public class ManageProduct_Fragment extends Fragment {
 
     TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription;
@@ -76,13 +78,13 @@ public class ManageProduct_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if(p != null){
-            mImage.setImageResource(p.getmImage());
-            mName.getEditText().setText(p.getmName());
-            mTrademark.getEditText().setText(p.getmBrandM());
-            mDosage.getEditText().setText(p.getmDosage());
-            mStock.getEditText().setText(p.getmStock());
-            mPrice.getEditText().setText(String.valueOf(p.getmPrice()));
-            mDescription.getEditText().setText(p.getmDescription());
+            //mImage.setImageResource(p.getImage());
+            mName.getEditText().setText(p.getName());
+            mTrademark.getEditText().setText(p.getBrand());
+            mDosage.getEditText().setText(p.getDosage());
+            mStock.getEditText().setText(p.getStock());
+            mPrice.getEditText().setText(String.valueOf(p.getPrice()));
+            mDescription.getEditText().setText(p.getDescription());
         }
 
         mFabSave.setOnClickListener(new View.OnClickListener() {
@@ -103,13 +105,14 @@ public class ManageProduct_Fragment extends Fragment {
     private void save(){
 
         mCallBack.saveProduct(p, new Product(
-                R.drawable.pastilla,
+                new Random().nextInt(),
                 mName.getEditText().getText().toString(),
                 mTrademark.getEditText().getText().toString(),
                 mDosage.getEditText().getText().toString(),
                 mStock.getEditText().getText().toString(),
                 Double.parseDouble(mPrice.getEditText().getText().toString()),
-                mDescription.getEditText().getText().toString()));
+                mDescription.getEditText().getText().toString()),
+
     }
 
     public interface IManageListener{
