@@ -29,12 +29,13 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name="com.jsw.MngProductDatabase.Home_Activity"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="com.jsw.MngProductDatabase.SignUp_Activity"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
