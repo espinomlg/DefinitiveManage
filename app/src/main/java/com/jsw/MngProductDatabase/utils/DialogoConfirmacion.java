@@ -38,7 +38,7 @@ public class DialogoConfirmacion extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
         p = (Product)getArguments().getParcelable("product");
-        return crear(p.getmName());
+        return crear(p.getName());
     }
 
     public Dialog crear(String name){

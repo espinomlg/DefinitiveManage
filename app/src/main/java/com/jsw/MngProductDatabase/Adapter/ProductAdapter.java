@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.jsw.MngProductDatabase.Model.Product;
 import com.jsw.MngProductDatabase.DAO.ProductRepository;
 import com.jsw.MngProductDatabase.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -78,10 +79,10 @@ public class ProductAdapter extends ArrayAdapter<Product> implements Serializabl
         }else
             p = (ProductHolder) item.getTag();
 
-        p.img.setImageResource(getItem(position).getmImage());
-        p.name.setText(getItem(position).getmName());
-        p.stock.setText(getItem(position).getmStock());
-        p.precio.setText(getItem(position).getFormattedPrice());
+        Picasso.with(contexto).load(getItem(position).getImage()).into(p.img);
+        p.name.setText(getItem(position).getName());
+        p.stock.setText(getItem(position).getStock());
+        p.precio.setText(String.valueOf(getItem(position).getPrice()));
 
         return item;
     }

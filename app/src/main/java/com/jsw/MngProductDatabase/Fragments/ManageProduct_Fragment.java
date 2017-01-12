@@ -27,17 +27,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.jsw.MngProductDatabase.Model.Product;
 import com.jsw.MngProductDatabase.R;
 import com.jsw.MngProductDatabase.interfaces.IProduct;
+import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
 public class ManageProduct_Fragment extends Fragment {
 
-    TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription;
+    TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription, mUrl;
     ImageView mImage;
+    Spinner mCategory;
     Product p;
 
     FloatingActionButton mFabSave;
@@ -68,8 +71,10 @@ public class ManageProduct_Fragment extends Fragment {
         mDosage = (TextInputLayout) rootView.findViewById(R.id.til_dosage);
         mStock = (TextInputLayout) rootView.findViewById(R.id.til_stock);
         mPrice = (TextInputLayout) rootView.findViewById(R.id.til_price);
+        mUrl = (TextInputLayout) rootView.findViewById(R.id.til_imageurl);
         mDescription = (TextInputLayout) rootView.findViewById(R.id.til_descripcion);
         mFabSave = (FloatingActionButton)rootView.findViewById(R.id.fab_guardar);
+        mCategory = (Spinner)rootView.findViewById(R.id.spinner);
         return rootView;
     }
 
@@ -77,13 +82,15 @@ public class ManageProduct_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(p != null){
+        if(p != null){;
             //mImage.setImageResource(p.getImage());
             mName.getEditText().setText(p.getName());
             mTrademark.getEditText().setText(p.getBrand());
             mDosage.getEditText().setText(p.getDosage());
             mStock.getEditText().setText(p.getStock());
             mPrice.getEditText().setText(String.valueOf(p.getPrice()));
+            mUrl.getEditText().setText(p.getImage());
+            mCategory.setSelection(0);
             mDescription.getEditText().setText(p.getDescription());
         }
 
@@ -107,12 +114,13 @@ public class ManageProduct_Fragment extends Fragment {
         mCallBack.saveProduct(p, new Product(
                 new Random().nextInt(),
                 mName.getEditText().getText().toString(),
+                mDescription.getEditText().getText().toString(),
                 mTrademark.getEditText().getText().toString(),
                 mDosage.getEditText().getText().toString(),
+                Double.valueOf(mPrice.getEditText().getText().toString()),
                 mStock.getEditText().getText().toString(),
-                Double.parseDouble(mPrice.getEditText().getText().toString()),
-                mDescription.getEditText().getText().toString()),
-
+                mUrl.getEditText().getText().toString(),
+                1));
     }
 
     public interface IManageListener{

@@ -22,6 +22,7 @@ import com.jsw.MngProductDatabase.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by usuario on 9/12/16.
@@ -37,22 +38,20 @@ public class ProductRepository {
 
     private ProductRepository() {
         products = new ArrayList<Product>();
-        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "1gr", "2", 45.70, "Ibuprofeno Generico 1gr"));
-        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "700mg", "65", 15.70, "Ibuprofeno Generico 700mg"));
-        products.add(new Product(R.drawable.vaporu, "Vaporu", "Vicks", "1gr", "6", 65.70, "Gel Utopico"));
-        products.add(new Product(R.drawable.hemoal, "Hemoal", "Hemoal SA", "3gr", "2", 55.70, "Crema Almorranas"));
-        products.add(new Product(R.drawable.juanola, "Juanolas", "Juanolas", "5gr", "2", 45.70, "Pastillas"));
-        products.add(new Product(R.drawable.avril, "Avril", "Avril", "1gr", "9", 7.70, "Crema Quemaduras"));
-        products.add(new Product(R.drawable.avril, "Avril", "Avril", "5gr", "12", 15.70, "Crema Quemaduras"));
-        products.add(new Product(R.drawable.diazepam, "Diazepam", "Bayern", "1gr", "200", 45.70, "Pastillas Tranquilizantes"));
-        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "1gr", "2", 45.70, "Ibuprofeno Generico 1gr"));
-        products.add(new Product(R.drawable.pastilla, "Ibuprofeno", "Generico", "700mg", "65", 15.70, "Ibuprofeno Generico 700mg"));
-        products.add(new Product(R.drawable.vaporu, "Vaporu", "Vicks", "1gr", "6", 65.70, "Gel Utopico"));
-        products.add(new Product(R.drawable.hemoal, "Hemoal", "Hemoal SA", "3gr", "2", 55.70, "Crema Almorranas"));
-        products.add(new Product(R.drawable.juanola, "Juanolas", "Juanolas", "5gr", "2", 45.70, "Pastillas"));
-        products.add(new Product(R.drawable.avril, "Avril", "Avril", "1gr", "9", 7.70, "Crema Quemaduras"));
-        products.add(new Product(R.drawable.avril, "Avril", "Avril", "5gr", "12", 15.70, "Crema Quemaduras"));
-        products.add(new Product(R.drawable.diazepam, "Diazepam", "Bayern", "1gr", "200", 45.70, "Pastillas Tranquilizantes"));
+        Random rnd = new Random();
+
+        products.add(new Product(rnd.nextInt(), "Ibuprofeno", "Ibuprofeno Generico 1gr",  "Generico", "1gr", 4.70, "2", "https://www.laproff.com/img/product/Ibuprofeno.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Albendazol", "Albendazol Generico 1gr",  "Laproff", "1gr", 5.70, "2", "https://www.laproff.com/img/product/albendazol.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Deflazacort", "Deflazacort Generico 1gr",  "Generico", "1gr", 7.0, "2", "https://www.laproff.com/img/product/Deflazacort%206mg%20x103d%20copia.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Flouxetina", "Flouxetina Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Flouxetina-20mg-x300-3d-capsulas.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Hioscina", "Hioscina Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Hioscina%2010mg%20x20%203d.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Levofloxacina", "Levofloxacina Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Levofloxacina-500mg-x10-3d.png", 1));
+        products.add(new Product(rnd.nextInt(), "Lorazepam", "Lorazepam Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Lorazepam-2mg-x30-3d-copia.png", 1));
+        products.add(new Product(rnd.nextInt(), "Piridoxina", "Piridoxina Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Piridoxina-50mg-x100-3d.png", 1));
+        products.add(new Product(rnd.nextInt(), "Propranolol", "Propranolol Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Propranolol-40mg-x20-3d.psd.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Tinidazol", "Tinidazol Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Tinidazol-500mg-x240-3d.jpg", 1));
+        products.add(new Product(rnd.nextInt(), "Tiamina", "Tiamina Generico 1gr",  "Generico", "1gr", 45.70, "2", "https://www.laproff.com/img/product/Tiamina.png", 1));
+        products.add(new Product(rnd.nextInt(), "LSD", "LSD Del Bueno 1gr",  "Generico", "1gr", 45.70, "2", "https://assets.digitalocean.com/other_images/sammy.png", 1));
     }
 
     public static void add(Product p){
@@ -61,13 +60,6 @@ public class ProductRepository {
 
     public static List<Product> getProducts(){
         return products;
-    }
-
-    public static void OrderAlph(boolean order){
-        //if(order)
-        //Collections.sort(products, (p1, p2) -> p1.getmName().compareTo(p2.getmName()));
-        //else
-        //Collections.sort(products, (p1, p2) -> p2.getmName().compareTo(p1.getmName()));
     }
 
     public static void deleteProduct(Product product){

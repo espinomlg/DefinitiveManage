@@ -182,7 +182,7 @@ public class SignUp_Activity extends AppCompatActivity implements ISignUp.View {
      * If imput text have no errors it starts activity.
      */
     public void startActivity(){
-        Intent intent = new Intent(this, RecyclerList_Activity.class);
+        Intent intent = new Intent(this, Home_Activity.class);
         startActivity(intent);
         finish();
     }
