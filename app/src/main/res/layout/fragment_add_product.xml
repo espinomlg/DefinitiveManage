@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_dosage" />
@@ -76,7 +76,7 @@
             android:layout_weight="1"
             >
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_stock" />
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_price" />
@@ -123,7 +123,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="ImageURL" />
@@ -150,7 +150,7 @@
 
 
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/add_description" />

@@ -27,7 +27,7 @@
         android:layout_below="@id/tv_signup"
         android:id="@+id/til_username">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="username"
@@ -42,7 +42,7 @@
         android:layout_below="@id/til_username"
         android:id="@+id/til_password2">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -57,7 +57,7 @@
         android:layout_below="@id/til_password2"
         android:id="@+id/til_email">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"

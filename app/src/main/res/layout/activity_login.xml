@@ -21,7 +21,7 @@
         app:errorTextAppearance="@color/errores"
         app:counterMaxLength="20">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -45,7 +45,7 @@
         app:counterMaxLength="20">
 
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_pass"
