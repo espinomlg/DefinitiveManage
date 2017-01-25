@@ -19,8 +19,14 @@ package com.jsw.MngProductDatabase.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
+import android.util.Log;
+
+import com.jsw.MngProductDatabase.ManageProductApplication;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Clase que guarda el esquema de la
@@ -28,33 +34,72 @@ import android.os.Build;
 
 public final class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME="ManageProduct.db";
     private static DatabaseHelper databaseHelper;
+    private AtomicInteger mOpenCounter;
+    private SQLiteDatabase mDatabase;
     private Context context;
 
-    private DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION); //Es null porque no vamos a usar cursores
+    private DatabaseHelper() {
+        super(ManageProductApplication.getContext(), DATABASE_NAME, null, DATABASE_VERSION); //Es null porque no vamos a usar cursores
+        mOpenCounter = new AtomicInteger();
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context){
+    public static synchronized DatabaseHelper getInstance(){
         if(databaseHelper == null)
-            databaseHelper = new DatabaseHelper(context.getApplicationContext()); //Se usa el de la aplicación por si la activity fuese null
+            databaseHelper = new DatabaseHelper(); //Se usa el de la aplicación por si la activity fuese null
 
         return databaseHelper;
     }
 
+    public synchronized SQLiteDatabase openDatabase(){
+        if(mOpenCounter.incrementAndGet() == 1)
+            mDatabase = getWritableDatabase();
+
+        return mDatabase;
+    }
+
+    public synchronized void closeDatabase(){
+        if(mOpenCounter.decrementAndGet() == 1)
+            mDatabase.close();
+    }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(Contract.CategoryEntry.SQL_CREATE_ENTRIE);
-        sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_CREATE_ENTRIE);
+        try {
+            sqLiteDatabase.beginTransaction();
+            sqLiteDatabase.execSQL(Contract.CategoryEntry.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.PharmacyCategory.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.InvoiceStatusCategory.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.InvoiceCategory.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.InvoiceLineCategory.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.setTransactionSuccessful();
+        } catch(SQLiteException ex){
+            Log.e("DATABASE ERROR", ex.getLocalizedMessage());
+        } finally {
+            sqLiteDatabase.endTransaction();
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_DELETE_ENTRIES);
-        sqLiteDatabase.execSQL(Contract.CategoryEntry.SQL_DELETE_ENTRIES);
-        this.onCreate(sqLiteDatabase);
+        try {
+            sqLiteDatabase.beginTransaction();
+            sqLiteDatabase.execSQL(Contract.InvoiceLineCategory.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.InvoiceCategory.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.InvoiceStatusCategory.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.PharmacyCategory.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.CategoryEntry.SQL_DELETE_ENTRIES);
+            this.onCreate(sqLiteDatabase);
+            sqLiteDatabase.setTransactionSuccessful();
+        }
+
+        finally {
+            sqLiteDatabase.endTransaction();
+        }
     }
 
     @Override

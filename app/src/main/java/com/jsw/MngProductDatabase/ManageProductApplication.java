@@ -18,6 +18,7 @@ package com.jsw.MngProductDatabase;
  */
 
 import android.app.Application;
+import android.content.Context;
 
 import com.jsw.MngProductDatabase.database.DatabaseHelper;
 
@@ -28,10 +29,16 @@ import com.jsw.MngProductDatabase.database.DatabaseHelper;
 public class ManageProductApplication extends Application {
 
     //private DatabaseHelper databaseHelper;
+    private static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        DatabaseHelper.getInstance(this).getDatabase();
+        context = (Context)this;
+        DatabaseHelper.getInstance().getDatabase();
+    }
+
+    public static Context getContext(){
+        return context;
     }
 }

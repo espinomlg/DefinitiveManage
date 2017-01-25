@@ -17,8 +17,11 @@ package com.jsw.MngProductDatabase.Presenter;
  *  jose.gallardo994@gmail.com
  */
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.jsw.MngProductDatabase.Model.Product;
-import com.jsw.MngProductDatabase.DAO.ProductRepository;
+import com.jsw.MngProductDatabase.database.DatabaseHelper;
+import com.jsw.MngProductDatabase.database.DatabaseManager;
 import com.jsw.MngProductDatabase.interfaces.IProductPresenter;
 
 /**
@@ -34,7 +37,7 @@ public class ProductPresenter implements IProductPresenter{
 
     @Override
     public void loadProducts() {
-        if(ProductRepository.getProducts().isEmpty())
+        if(DatabaseManager.getInstance().getProducts().isEmpty())
             view.showEmptyState(true);
         else
             view.showProduct();
@@ -42,25 +45,27 @@ public class ProductPresenter implements IProductPresenter{
 
     @Override
     public Product getProduct(int id) {
-        return ProductRepository.getProducts().get(id);
+        return DatabaseManager.getInstance().getProducts().get(id);
     }
 
     @Override
     public void deleteProduct(Product product) {
-        ProductRepository.deleteProduct(product);
-        //Vuelve a cargar los productos y actualiza los productos.
+        SQLiteDatabase sql = DatabaseHelper.getInstance().openDatabase();
+
         view.showMessage("Product Delete", product);
         loadProducts();
+
+        DatabaseHelper.getInstance().closeDatabase();
     }
 
 
     public void addProduct(Product product){
-        ProductRepository.add(product);
+        DatabaseManager.getInstance().addProduct(product);
         view.showProduct();
     }
 
     public void updateProduct(Product oldProduct, Product newProduct){
-        ProductRepository.deleteProduct(oldProduct);
+        DatabaseManager.getInstance().deleteProduct(oldProduct);
         this.addProduct(newProduct);
     }
 

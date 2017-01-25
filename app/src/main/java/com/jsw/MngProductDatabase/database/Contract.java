@@ -56,6 +56,7 @@ public final class Contract {
                 COLUMN_DOSAGE, COLUMN_PRICE, COLUMN_STOCK, COLUMN_IMAGE, COLUMN_IDCATEGORY, REFERENCE_ID_CATEGORY);
 
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+        public static final String[] ALL_COLUMNS = {BaseColumns._ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_BRAND, COLUMN_DOSAGE, COLUMN_PRICE, COLUMN_STOCK, COLUMN_IMAGE, COLUMN_IDCATEGORY};
     }
 
     public static class InvoiceCategory implements BaseColumns{
@@ -64,7 +65,7 @@ public final class Contract {
         public static final String COLUMN_IDPHARMACY="idPharmacy";
         public static final String COLUMN_DATE="date";
         public static final String COLUMN_STATUS="status";
-        public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT NOT NULL, %s INT REFERENCES Pharmacy (_id) ON UPDATE CASCADE ON DELETE RESTRICT), %s TEXT, %s INTEGER REFERENCES invoicestatus (_id) ON UPDATE CASCADE ON DELETE RESTRICT)", TABLE_NAME, BaseColumns._ID, COLUMN_NAME, COLUMN_IDPHARMACY, COLUMN_DATE, COLUMN_STATUS);
+        public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT NOT NULL, %s INT REFERENCES Pharmacy (_id) ON UPDATE CASCADE ON DELETE RESTRICT, %s TEXT, %s INTEGER REFERENCES invoicestatus (_id) ON UPDATE CASCADE ON DELETE RESTRICT)", TABLE_NAME, BaseColumns._ID, COLUMN_NAME, COLUMN_IDPHARMACY, COLUMN_DATE, COLUMN_STATUS);
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
     }
 
@@ -78,6 +79,24 @@ public final class Contract {
         public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER NOT NULL REFERENCES invoice (_id) ON UPDATE CASCADE ON DELETE RESTRICT, %s INTEGER NOT NULL, %s INT REFERENCES product (_id) ON UPDATE CASCADE ON DELETE RESTRICT, %s INTEGER NOT NULL, %s REAL)",
                 TABLE_NAME, BaseColumns._ID, COLUMN_IDINVOICE, COLUMN_ORDERPRODUCT,
                 COLUMN_IDPRODUCT, COLUMN_AMOUNT, COLUMN_PRICE);
+        public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+    }
+
+    public static class InvoiceStatusCategory implements BaseColumns{
+        public static final String TABLE_NAME="invoicestatus";
+        public static final String COLUMN_NAME="name";
+        public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT NOT NULL)",
+                TABLE_NAME, BaseColumns._ID, COLUMN_NAME);
+        public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+    }
+
+    public static class PharmacyCategory implements BaseColumns{
+        public static final String TABLE_NAME="pharmacy";
+        public static final String COLUMN_CIF="cif";
+        public static final String COLUMN_ADDRESS="address";
+        public static final String COLUMN_PHONE="phone";
+        public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT NOT NULL, %s TEXT NOT NULL, %s TEXT NOT NULL)",
+                TABLE_NAME, BaseColumns._ID, COLUMN_CIF, COLUMN_ADDRESS, COLUMN_PHONE);
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
     }
 

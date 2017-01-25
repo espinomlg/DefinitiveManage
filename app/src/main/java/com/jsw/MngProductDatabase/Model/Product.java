@@ -20,6 +20,9 @@ public class Product implements Parcelable, Comparable<Product> {
     String image;
     int idCategory;
 
+    public Product() {
+    }
+
     public Product(int ID, String name, String description, String brand, String dosage, Double price, String stock, String image, int idCategory) {
         this.ID = ID;
         this.name = name;
@@ -80,6 +83,42 @@ public class Product implements Parcelable, Comparable<Product> {
             return p1.getName().compareTo(p2.getName());
         }
     };
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setIdCategory(int idCategory) {
+        this.idCategory = idCategory;
+    }
 
     /****PARCELABLE IMPLEMENTATION******/
     protected Product(Parcel in) {
