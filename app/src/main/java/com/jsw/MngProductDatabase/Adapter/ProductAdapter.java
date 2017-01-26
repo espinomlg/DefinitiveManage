@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jsw.MngProductDatabase.Model.Product;
+import com.jsw.MngProductDatabase.Presenter.ProductPresenter;
 import com.jsw.MngProductDatabase.R;
 import com.jsw.MngProductDatabase.database.DatabaseManager;
 import com.squareup.picasso.Picasso;

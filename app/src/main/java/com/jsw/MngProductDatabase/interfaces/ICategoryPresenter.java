@@ -1,7 +1,7 @@
 package com.jsw.MngProductDatabase.interfaces;
 
 /*
- * Copyright (c) 2016 José Luis del Pino Gallardo.
+ * Copyright (c) 2017 José Luis del Pino Gallardo.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,26 +17,18 @@ package com.jsw.MngProductDatabase.interfaces;
  *  jose.gallardo994@gmail.com
  */
 
-import android.app.ProgressDialog;
+import android.support.v4.widget.CursorAdapter;
 
-import com.jsw.MngProductDatabase.Model.Product;
+import com.jsw.MngProductDatabase.Presenter.CategoryPresenter;
 
 /**
- * Created by usuario on 9/12/16.
+ * Created by usuario on 26/01/17.
  */
 
-public interface IProductPresenter {
+public interface ICategoryPresenter {
 
-    void getAllProducts();
-    void addProduct(Product p);
-    Product getProduct(int id);
-    void deleteProduct(Product product);
-    void onDestroy();
+    void getAllCategories(CursorAdapter adapter);
 
-    interface View{
-        void showProduct();
-        void showEmptyState(boolean show);
-        void showMessage(String message, Product product);
-        ProgressDialog getProgressDialog();
+    interface View {
     }
 }

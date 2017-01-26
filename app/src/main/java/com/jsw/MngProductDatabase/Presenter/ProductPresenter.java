@@ -18,11 +18,14 @@ package com.jsw.MngProductDatabase.Presenter;
  */
 
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 
 import com.jsw.MngProductDatabase.Model.Product;
 import com.jsw.MngProductDatabase.database.DatabaseHelper;
 import com.jsw.MngProductDatabase.database.DatabaseManager;
 import com.jsw.MngProductDatabase.interfaces.IProductPresenter;
+
+import java.util.List;
 
 /**
  * Created by usuario on 9/12/16.
@@ -36,12 +39,38 @@ public class ProductPresenter implements IProductPresenter{
     }
 
     @Override
-    public void loadProducts() {
-        if(DatabaseManager.getInstance().getProducts().isEmpty())
-            view.showEmptyState(true);
-        else
-            view.showProduct();
+    public void getAllProducts(){
+        new AsyncTask<Void, Void, List<Product>>(){
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                view.getProgressDialog().show();
+            }
+
+            @Override
+            protected List<Product> doInBackground(Void... voids) {
+                try{
+                    Thread.sleep(1800);
+                } catch (Exception ex){
+
+                }
+
+                return DatabaseManager.getInstance().getProducts();
+            }
+
+            @Override
+            protected void onPostExecute(List<Product> products) {
+                view.showProduct();
+            }
+
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+                view.showEmptyState(true);
+            }
+        }.execute();
     }
+
 
     @Override
     public Product getProduct(int id) {
@@ -51,9 +80,8 @@ public class ProductPresenter implements IProductPresenter{
     @Override
     public void deleteProduct(Product product) {
         SQLiteDatabase sql = DatabaseHelper.getInstance().openDatabase();
-
         view.showMessage("Product Delete", product);
-        loadProducts();
+        getAllProducts();
 
         DatabaseHelper.getInstance().closeDatabase();
     }

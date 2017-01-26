@@ -33,11 +33,6 @@ import java.util.List;
  */
 public class DatabaseManager {
     private static DatabaseManager ourInstance;
-    private Context context;
-
-    private DatabaseManager(Context context) {
-        this.context = context;
-    }
 
     public static DatabaseManager getInstance() {
         if(ourInstance == null)
@@ -87,14 +82,14 @@ public class DatabaseManager {
 
     public List<Product> getProducts(){
         ArrayList<Product> products = new ArrayList<>();
-        Product product = new Product();
+        Product product;
         SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance().openDatabase();
 
         Cursor cursor = sqLiteDatabase.query(Contract.ProductEntry.TABLE_NAME, Contract.ProductEntry.ALL_COLUMNS, null, null, null, null, null);
 
         if(cursor.moveToFirst()){
             do{
-                //ID, String name, String description, String brand, String dosage, Double price, String stock, String image, int idCategory)
+                product = new Product();
                 product.setID(cursor.getInt(0));
                 product.setName(cursor.getString(1));
                 product.setDescription(cursor.getString(2));
@@ -104,6 +99,7 @@ public class DatabaseManager {
                 product.setStock(cursor.getString(6));
                 product.setImage(cursor.getString(7));
                 product.setIdCategory(cursor.getInt(8));
+                products.add(product);
             } while(cursor.moveToNext());
 
         }
@@ -113,7 +109,22 @@ public class DatabaseManager {
         return products;
     }
 
-    public void deleteProduct(Product product){
+    public void deleteProduct(Product p){
+        SQLiteDatabase sqLite = DatabaseHelper.getInstance().openDatabase();
+        String where = BaseColumns._ID + "=?";
+        String[] args = {String.valueOf(p.getID())};
+        sqLite.delete(Contract.ProductEntry.TABLE_NAME, where, args);
+        DatabaseHelper.getInstance().closeDatabase();
+    }
 
+    /**
+     * Métodos de la tabla categoría.
+     */
+
+    public Cursor getAllCategories(){
+        SQLiteDatabase sqLite = DatabaseHelper.getInstance().openDatabase();
+        Cursor cursor = sqLite.query(Contract.CategoryEntry.TABLE_NAME, Contract.CategoryEntry.ALL_COLUMNS, null, null, null, null, null);
+        DatabaseHelper.getInstance().closeDatabase();
+        return cursor;
     }
 }

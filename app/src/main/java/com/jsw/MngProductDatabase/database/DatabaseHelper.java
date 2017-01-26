@@ -61,7 +61,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public synchronized void closeDatabase(){
-        if(mOpenCounter.decrementAndGet() == 1)
+        if(mOpenCounter.decrementAndGet() == 0)
             mDatabase.close();
     }
 

@@ -18,6 +18,7 @@ package com.jsw.MngProductDatabase.Fragments;
  */
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ListFragment;
@@ -51,6 +52,7 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
     private TextView mEmpty;
     PopupMenu popup;
     private FloatingActionButton mFab;
+    private ProgressDialog mProgress;
 
     private IListProductListener mCallback;
 
@@ -79,6 +81,7 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
         View rootView = inflater.inflate(R.layout.fragment_list_product, container, false);
         mEmpty = (TextView)rootView.findViewById(android.R.id.empty);
         mFab = (FloatingActionButton)rootView.findViewById(R.id.fab_añadir);
+        mProgress = new ProgressDialog(getContext());
         return rootView;
     }
 
@@ -156,6 +159,14 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
                         mCallback.undoDeleting(product);
                     }
                 }).show();
+    }
+
+    @Override
+    public ProgressDialog getProgressDialog() {
+        mProgress.setMessage("Cargando la base de datos");
+        mProgress.setTitle("Conectando.");
+        mProgress.setCancelable(false);
+        return mProgress;
     }
 
     @Override

@@ -23,6 +23,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,18 +32,23 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.jsw.MngProductDatabase.Model.Product;
+import com.jsw.MngProductDatabase.Presenter.CategoryPresenter;
 import com.jsw.MngProductDatabase.R;
+import com.jsw.MngProductDatabase.database.Contract;
+import com.jsw.MngProductDatabase.interfaces.ICategoryPresenter;
 import com.jsw.MngProductDatabase.interfaces.IProduct;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
-public class ManageProduct_Fragment extends Fragment {
+public class ManageProduct_Fragment extends Fragment implements ICategoryPresenter.View {
 
     TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription, mUrl;
     ImageView mImage;
     Spinner mCategory;
     Product p;
+    private SimpleCursorAdapter mCursorAdapter;
+    private static CategoryPresenter mPresenter;
 
     FloatingActionButton mFabSave;
     IManageListener mCallBack;
@@ -57,8 +64,23 @@ public class ManageProduct_Fragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null)
+        if(getArguments() != null) {
             this.p = getArguments().getParcelable(IProduct.PRODUCT_KEY);
+        }
+
+        mPresenter = new CategoryPresenter(this);
+    }
+
+    /**
+     * Called when the Fragment is visible to the user.  This is generally
+     * tied to {@link Activity#onStart() Activity.onStart} of the containing
+     * Activity's lifecycle.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        //Una vez que la vista ha sido creada:
+        mPresenter.getAllCategories((CursorAdapter)mCursorAdapter);
     }
 
     @Override
@@ -100,6 +122,13 @@ public class ManageProduct_Fragment extends Fragment {
                 save();
             }
         });
+
+        String[] from = {Contract.CategoryEntry.COLUMN_NAME};
+        int[] to = {android.R.id.text1};
+
+        mCursorAdapter = new SimpleCursorAdapter(getContext(), android.R.layout.simple_spinner_item, null, from, to, 0);
+        mCursorAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        mCategory.setAdapter(mCursorAdapter);
 
     }
 
