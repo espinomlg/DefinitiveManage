@@ -33,7 +33,9 @@ import com.jsw.MngProductDatabase.database.DatabaseManager;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by usuario on 18/11/16.
@@ -49,9 +51,8 @@ public class ProductAdapter extends ArrayAdapter<Product> implements Serializabl
         //Cuando aqui ponemos un tercer parametro, teneos que entener que el array interno es igual a este.
         //Por eso cuando hacia un clear se borraba el del DAO.
         //Para evitarlo o le hacemos un new ArayList (Lourdes) o a this le hacemos un addAll (Yo)
-        super(context, R.layout.item_product);
+        super(context, R.layout.item_product, new ArrayList<Product>());
         this.contexto = context;
-        this.addAll(DatabaseManager.getInstance().getProducts());
         refreshView();
     }
 
@@ -97,6 +98,11 @@ public class ProductAdapter extends ArrayAdapter<Product> implements Serializabl
             sort(Collections.reverseOrder());
 
         notifyDataSetChanged();
+    }
+
+    public void replace(List<Product> products){
+        this.clear();
+        this.addAll(products);
     }
 
     public void addProduct(Product product){

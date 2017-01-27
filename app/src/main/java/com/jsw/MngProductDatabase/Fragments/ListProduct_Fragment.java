@@ -41,6 +41,8 @@ import com.jsw.MngProductDatabase.Presenter.ProductPresenter;
 import com.jsw.MngProductDatabase.R;
 import com.jsw.MngProductDatabase.interfaces.IProduct;
 
+import java.util.List;
+
 public class ListProduct_Fragment extends ListFragment implements IProduct, ProductPresenter.View{
 
     public static Product p;
@@ -53,6 +55,7 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
     PopupMenu popup;
     private FloatingActionButton mFab;
     private ProgressDialog mProgress;
+    private ProductPresenter mPresenter;
 
     private IListProductListener mCallback;
 
@@ -66,6 +69,7 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         mAdapter = new ProductAdapter(getContext());
+        mPresenter = new ProductPresenter(this);
         setRetainInstance(true);
 
         /**
@@ -136,10 +140,12 @@ public class ListProduct_Fragment extends ListFragment implements IProduct, Prod
                 mCallback.showManageProduct(null);
             }
         });
+        mPresenter.getAllProducts();
     }
 
-    public void showProduct() {
-        mAdapter.updateListProduct();
+    public void showProduct(List<Product> products) {
+
+        mAdapter.replace(products);
     }
 
     private  void hideList(boolean hide){

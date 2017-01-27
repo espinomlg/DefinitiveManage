@@ -42,6 +42,7 @@ public class DatabaseManager {
     }
 
     private DatabaseManager() {
+
     }
 
     public void addProduct(Product p){
@@ -124,7 +125,7 @@ public class DatabaseManager {
     public Cursor getAllCategories(){
         SQLiteDatabase sqLite = DatabaseHelper.getInstance().openDatabase();
         Cursor cursor = sqLite.query(Contract.CategoryEntry.TABLE_NAME, Contract.CategoryEntry.ALL_COLUMNS, null, null, null, null, null);
-        DatabaseHelper.getInstance().closeDatabase();
+        //DatabaseHelper.getInstance().closeDatabase();
         return cursor;
     }
 }

@@ -21,6 +21,8 @@ import android.app.ProgressDialog;
 
 import com.jsw.MngProductDatabase.Model.Product;
 
+import java.util.List;
+
 /**
  * Created by usuario on 9/12/16.
  */
@@ -34,7 +36,7 @@ public interface IProductPresenter {
     void onDestroy();
 
     interface View{
-        void showProduct();
+        void showProduct(List<Product> products);
         void showEmptyState(boolean show);
         void showMessage(String message, Product product);
         ProgressDialog getProgressDialog();

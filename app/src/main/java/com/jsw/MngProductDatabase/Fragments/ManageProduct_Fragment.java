@@ -18,6 +18,7 @@ package com.jsw.MngProductDatabase.Fragments;
  */
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -140,8 +141,12 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
 
     private void save(){
 
+        Cursor cursor = ((SimpleCursorAdapter)mCategory.getAdapter()).getCursor();
+        cursor.moveToPosition(mCategory.getSelectedItemPosition());
+
+
         mCallBack.saveProduct(p, new Product(
-                new Random().nextInt(),
+                p.getID(),
                 mName.getEditText().getText().toString(),
                 mDescription.getEditText().getText().toString(),
                 mTrademark.getEditText().getText().toString(),
@@ -152,7 +157,28 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
                 1));
     }
 
+    /**
+     * Swap cambia el cursor y devuelve el antiguo sin cerrarlo.
+     * Change cambia el cursor y cierra el antiguo.
+     * @param cursor
+     */
+    @Override
+    public void setCursorCategory(Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
+    }
+
     public interface IManageListener{
         void saveProduct(Product oldProduct, Product newProduct);
+    }
+
+    /**
+     * Called when the fragment is no longer attached to its activity.  This
+     * is called after {@link #onDestroy()}.
+     */
+    @Override
+    public void onDetach() {
+        mCallBack = null;
+        mCursorAdapter = null; //Cerramos el cursor en on Detach.
+        super.onDetach();
     }
 }

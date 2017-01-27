@@ -1,4 +1,4 @@
-package com.jsw.MngProductDatabase.interfaces;
+package com.jsw.MngProductDatabase.Cursors;
 
 /*
  * Copyright (c) 2017 José Luis del Pino Gallardo.
@@ -18,21 +18,30 @@ package com.jsw.MngProductDatabase.interfaces;
  */
 
 import android.content.Context;
+import android.content.CursorLoader;
 import android.database.Cursor;
-import android.support.v4.widget.CursorAdapter;
 
-import com.jsw.MngProductDatabase.Presenter.CategoryPresenter;
+import com.jsw.MngProductDatabase.database.DatabaseManager;
 
 /**
- * Created by usuario on 26/01/17.
+ * Created by usuario on 27/01/17.
  */
 
-public interface ICategoryPresenter {
+public class CategoryCursorLoader extends CursorLoader {
+    /**
+     * Creates an empty unspecified CursorLoader.  You must follow this with
+     * calls to {@link #setUri(Uri)}, {@link #setSelection(String)}, etc
+     * to specify the query to perform.
+     *
+     * @param context
+     */
+    public CategoryCursorLoader(Context context) {
+        super(context);
+    }
 
-    void getAllCategories(CursorAdapter adapter);
+    @Override
+    public Cursor loadInBackground() {
+        return DatabaseManager.getInstance().getAllCategories();
 
-    interface View {
-        void setCursorCategory(Cursor cursor);
-        Context getContext();
     }
 }

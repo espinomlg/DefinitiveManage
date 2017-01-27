@@ -60,12 +60,14 @@ public class ProductPresenter implements IProductPresenter{
 
             @Override
             protected void onPostExecute(List<Product> products) {
-                view.showProduct();
+                view.getProgressDialog().cancel();
+                view.showProduct(products);
             }
 
             @Override
             protected void onCancelled() {
                 super.onCancelled();
+                view.getProgressDialog().cancel();
                 view.showEmptyState(true);
             }
         }.execute();
@@ -89,7 +91,7 @@ public class ProductPresenter implements IProductPresenter{
 
     public void addProduct(Product product){
         DatabaseManager.getInstance().addProduct(product);
-        view.showProduct();
+        //view.showProduct();
     }
 
     public void updateProduct(Product oldProduct, Product newProduct){
