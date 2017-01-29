@@ -32,47 +32,46 @@ import com.jsw.MngProductDatabase.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Pharmacy_Fragment extends Fragment {
+public class ManagePharmacy extends Fragment {
 
     private FloatingActionButton mFab;
-    private IPharmacyListener mCallback;
+    //private IPharmacyListener mCallback;
 
-    public Pharmacy_Fragment() {
+    public ManagePharmacy() {
         // Required empty public constructor
     }
 
-    public static Pharmacy_Fragment getInstance() {
-        return new Pharmacy_Fragment();
+    public static ManagePharmacy getInstance() {
+        return new ManagePharmacy();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallback = (IPharmacyListener) activity;
+        //mCallback = (IPharmacyListener)activity;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootview = inflater.inflate(R.layout.fragment_pharmacy, container, false);
+        View rootview = inflater.inflate(R.layout.fragment_manage_pharmacy, container, false);
         mFab = (FloatingActionButton) rootview.findViewById(R.id.fab_add_pharmacy);
         return rootview;
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFab.setOnClickListener(new View.OnClickListener() {
+        /*mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCallback.addPharmacy();
             }
-        });
+        });*/
+
     }
 
-
-    public interface IPharmacyListener {
-        void addPharmacy();
-    }
 }

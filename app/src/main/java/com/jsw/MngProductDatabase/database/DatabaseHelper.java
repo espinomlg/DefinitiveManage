@@ -70,11 +70,11 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
         try {
             sqLiteDatabase.beginTransaction();
             sqLiteDatabase.execSQL(Contract.CategoryEntry.SQL_CREATE_ENTRIE);
-            sqLiteDatabase.execSQL(Contract.PharmacyCategory.SQL_CREATE_ENTRIE);
-            sqLiteDatabase.execSQL(Contract.InvoiceStatusCategory.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.PharmacyEntry.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.InvoiceStatusEntry.SQL_CREATE_ENTRIE);
             sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_CREATE_ENTRIE);
-            sqLiteDatabase.execSQL(Contract.InvoiceCategory.SQL_CREATE_ENTRIE);
-            sqLiteDatabase.execSQL(Contract.InvoiceLineCategory.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.InvoiceEntry.SQL_CREATE_ENTRIE);
+            sqLiteDatabase.execSQL(Contract.InvoiceLineEntry.SQL_CREATE_ENTRIE);
             sqLiteDatabase.setTransactionSuccessful();
         } catch(SQLiteException ex){
             Log.e("DATABASE ERROR", ex.getLocalizedMessage());
@@ -87,11 +87,11 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         try {
             sqLiteDatabase.beginTransaction();
-            sqLiteDatabase.execSQL(Contract.InvoiceLineCategory.SQL_DELETE_ENTRIES);
-            sqLiteDatabase.execSQL(Contract.InvoiceCategory.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.InvoiceLineEntry.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.InvoiceEntry.SQL_DELETE_ENTRIES);
             sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_DELETE_ENTRIES);
-            sqLiteDatabase.execSQL(Contract.InvoiceStatusCategory.SQL_DELETE_ENTRIES);
-            sqLiteDatabase.execSQL(Contract.PharmacyCategory.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.InvoiceStatusEntry.SQL_DELETE_ENTRIES);
+            sqLiteDatabase.execSQL(Contract.PharmacyEntry.SQL_DELETE_ENTRIES);
             sqLiteDatabase.execSQL(Contract.CategoryEntry.SQL_DELETE_ENTRIES);
             this.onCreate(sqLiteDatabase);
             sqLiteDatabase.setTransactionSuccessful();

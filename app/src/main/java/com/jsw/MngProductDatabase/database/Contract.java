@@ -60,7 +60,7 @@ public final class Contract {
         public static final String[] ALL_COLUMNS = {BaseColumns._ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_BRAND, COLUMN_DOSAGE, COLUMN_PRICE, COLUMN_STOCK, COLUMN_IMAGE, COLUMN_IDCATEGORY};
     }
 
-    public static class InvoiceCategory implements BaseColumns{
+    public static class InvoiceEntry implements BaseColumns {
         public static final String TABLE_NAME="invoice";
         public static final String COLUMN_NAME="name";
         public static final String COLUMN_IDPHARMACY="idPharmacy";
@@ -70,7 +70,7 @@ public final class Contract {
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
     }
 
-    public static class InvoiceLineCategory implements BaseColumns{
+    public static class InvoiceLineEntry implements BaseColumns {
         public static final String TABLE_NAME="invoiceline";
         public static final String COLUMN_IDINVOICE="idInvoice";
         public static final String COLUMN_ORDERPRODUCT="orderProduct";
@@ -83,7 +83,7 @@ public final class Contract {
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
     }
 
-    public static class InvoiceStatusCategory implements BaseColumns{
+    public static class InvoiceStatusEntry implements BaseColumns {
         public static final String TABLE_NAME="invoicestatus";
         public static final String COLUMN_NAME="name";
         public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT NOT NULL)",
@@ -91,7 +91,7 @@ public final class Contract {
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
     }
 
-    public static class PharmacyCategory implements BaseColumns{
+    public static class PharmacyEntry implements BaseColumns {
         public static final String TABLE_NAME="pharmacy";
         public static final String COLUMN_CIF="cif";
         public static final String COLUMN_ADDRESS="address";

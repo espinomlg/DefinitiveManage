@@ -32,6 +32,7 @@ import android.widget.FrameLayout;
 
 import com.jsw.MngProductDatabase.Fragments.Home_Fragment;
 import com.jsw.MngProductDatabase.Fragments.ListProduct_Fragment;
+import com.jsw.MngProductDatabase.Fragments.ManagePharmacy;
 import com.jsw.MngProductDatabase.Fragments.ManageProduct_Fragment;
 import com.jsw.MngProductDatabase.Fragments.Pharmacy_Fragment;
 import com.jsw.MngProductDatabase.Fragments.Sales_Fragment;
@@ -39,13 +40,14 @@ import com.jsw.MngProductDatabase.Model.Product;
 import com.jsw.MngProductDatabase.Presenter.ProductPresenter;
 import com.jsw.MngProductDatabase.utils.DialogoConfirmacion;
 
-public class Home_Activity extends AppCompatActivity implements ListProduct_Fragment.IListProductListener, ManageProduct_Fragment.IManageListener {
+public class Home_Activity extends AppCompatActivity implements ListProduct_Fragment.IListProductListener, ManageProduct_Fragment.IManageListener, Pharmacy_Fragment.IPharmacyListener {
 
     ProductPresenter mPresenter;
     private ListProduct_Fragment mListProduct;
     private ManageProduct_Fragment mManageProduct;
     private Home_Fragment mHome;
     private Pharmacy_Fragment mPharmacy;
+    private ManagePharmacy mMngPharmacy;
     private Sales_Fragment mSales;
     private boolean salir = false;
     private FrameLayout fl_home;
@@ -159,6 +161,10 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
     }
 
     public void setupDrawerContent(){
+
+        mMngPharmacy = null;
+        mManageProduct = null;
+
         mNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -191,5 +197,14 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    public void addPharmacy() {
+        mMngPharmacy = ManagePharmacy.getInstance();
+        FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
+        fr.replace(R.id.fl_frameHome, mMngPharmacy);
+        fr.addToBackStack("ListPharmacy");
+        fr.commit();
     }
 }
