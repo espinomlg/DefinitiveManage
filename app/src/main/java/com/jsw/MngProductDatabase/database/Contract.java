@@ -19,6 +19,8 @@ package com.jsw.MngProductDatabase.database;
 
 import android.provider.BaseColumns;
 
+import com.jsw.MngProductDatabase.Model.Category;
+
 /**
  * Created by usuario on 20/01/17.
  */
@@ -58,6 +60,8 @@ public final class Contract {
 
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
         public static final String[] ALL_COLUMNS = {BaseColumns._ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_BRAND, COLUMN_DOSAGE, COLUMN_PRICE, COLUMN_STOCK, COLUMN_IMAGE, COLUMN_IDCATEGORY};
+        public static final String PRODUCT_JOIN_CATEGORY = String.format("%s product INNER JOIN %s category ON product.%s=category.%s", TABLE_NAME, CategoryEntry.TABLE_NAME, BaseColumns._ID, CategoryEntry._ID);
+        public static final String[] COLUMNS_PROD_JOIN_CAT = new String[]{TABLE_NAME + "." + COLUMN_NAME, COLUMN_DESCRIPTION, CategoryEntry.TABLE_NAME+"."+CategoryEntry.COLUMN_NAME};
     }
 
     public static class InvoiceEntry implements BaseColumns {

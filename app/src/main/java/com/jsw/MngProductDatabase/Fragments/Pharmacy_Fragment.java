@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jsw.MngProductDatabase.Presenter.PharmacyPresenter;
 import com.jsw.MngProductDatabase.R;
 
 /**
@@ -36,6 +37,7 @@ public class Pharmacy_Fragment extends Fragment {
 
     private FloatingActionButton mFab;
     private IPharmacyListener mCallback;
+    private PharmacyPresenter mPresenter;
 
     public Pharmacy_Fragment() {
         // Required empty public constructor

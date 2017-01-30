@@ -17,11 +17,14 @@ package com.jsw.MngProductDatabase.database;
  *  jose.gallardo994@gmail.com
  */
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import com.jsw.MngProductDatabase.Model.Product;
 
@@ -29,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by usuario on 23/01/17.
+ * De momento va a ser de todas las clases.
  */
 public class DatabaseManager {
     private static DatabaseManager ourInstance;
@@ -105,8 +108,20 @@ public class DatabaseManager {
 
         }
 
-        DatabaseHelper.getInstance().closeDatabase();
+        //Mostramos en el log la union entre tabla y categoría
+        cursor.close();
 
+        SQLiteQueryBuilder sqb = new SQLiteQueryBuilder();
+        sqb.setTables(Contract.ProductEntry.PRODUCT_JOIN_CATEGORY);
+        cursor = sqb.query(sqLiteDatabase, Contract.ProductEntry.COLUMNS_PROD_JOIN_CAT, null, null, null, null, null);
+
+        if(cursor.moveToFirst()){
+            Log.e("ER_MANAGE", cursor.getString(0) +" " + cursor.getString(1) + " -> " + cursor.getString(2));
+        }
+
+        cursor.close();
+
+        DatabaseHelper.getInstance().closeDatabase();
         return products;
     }
 
@@ -127,5 +142,9 @@ public class DatabaseManager {
         Cursor cursor = sqLite.query(Contract.CategoryEntry.TABLE_NAME, Contract.CategoryEntry.ALL_COLUMNS, null, null, null, null, null);
         //DatabaseHelper.getInstance().closeDatabase();
         return cursor;
+    }
+
+    public Cursor getAllPharmacies() {
+        ((Activity))
     }
 }
