@@ -18,6 +18,10 @@ package com.jsw.MngProductDatabase.interfaces;
  */
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.database.Cursor;
+import android.widget.CursorAdapter;
+import android.widget.SimpleCursorAdapter;
 
 import com.jsw.MngProductDatabase.Model.Product;
 
@@ -29,12 +33,11 @@ import java.util.List;
 
 public interface IPharmacyPresenter {
 
-    void getAllPharmacies();
+    void getAllPharmacies(CursorAdapter adapter);
+    void onDestroy();
 
     interface View{
-        void showPharmacy(List<Product> products);
-        void showEmptyState(boolean show);
-        void showMessage(String message, Product product);
-        ProgressDialog getProgressDialog();
+        void setPharmacyCategory(Cursor cursor);
+        Context getContext();
     }
 }

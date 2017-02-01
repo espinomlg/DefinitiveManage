@@ -42,6 +42,5 @@ public class CategoryCursorLoader extends CursorLoader {
     @Override
     public Cursor loadInBackground() {
         return DatabaseManager.getInstance().getAllCategories();
-
     }
 }

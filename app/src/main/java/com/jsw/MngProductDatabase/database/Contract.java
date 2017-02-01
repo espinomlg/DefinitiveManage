@@ -103,6 +103,7 @@ public final class Contract {
         public static final String SQL_CREATE_ENTRIE = String.format("CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT NOT NULL, %s TEXT NOT NULL, %s TEXT NOT NULL)",
                 TABLE_NAME, BaseColumns._ID, COLUMN_CIF, COLUMN_ADDRESS, COLUMN_PHONE);
         public static final String SQL_DELETE_ENTRIES = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME);
+        public static final String[] ALL_COLUMNS = {BaseColumns._ID, COLUMN_CIF, COLUMN_ADDRESS, COLUMN_PHONE};
     }
 
 

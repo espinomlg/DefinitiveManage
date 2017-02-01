@@ -17,15 +17,68 @@ package com.jsw.MngProductDatabase.Presenter;
  *  jose.gallardo994@gmail.com
  */
 
+import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.Loader;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.CursorAdapter;
+
+import com.jsw.MngProductDatabase.Cursors.PharmacyCursorLoader;
 import com.jsw.MngProductDatabase.interfaces.IPharmacyPresenter;
 
 /**
  * Created by usuario on 30/01/17.
  */
 
-public class PharmacyPresenter implements IPharmacyPresenter {
-    @Override
-    public void getAllPharmacies() {
+public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.LoaderCallbacks<Cursor> {
 
+    IPharmacyPresenter.View view;
+    private final static int PHARMACY=1;
+    private Context context;
+
+    public PharmacyPresenter(IPharmacyPresenter.View Vista){
+        this.view = Vista;
+        this.context = Vista.getContext();
+    }
+
+    @Override
+    public void getAllPharmacies(CursorAdapter adapter) {
+        ((Activity)context).getLoaderManager().initLoader(PHARMACY, null, this);
+    }
+
+    public void restartLoader(){
+        ((Activity)context).getLoaderManager().restartLoader(PHARMACY, null, this);
+    }
+
+    @Override
+    public void onDestroy() {
+        this.view = null;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+        PharmacyCursorLoader ccl;
+
+        switch (id){
+            case PHARMACY:
+                ccl = new PharmacyCursorLoader(context);
+                break;
+            default:
+                ccl=null;
+        }
+
+        return ccl;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        view.setPharmacyCategory(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        view.setPharmacyCategory(null);
     }
 }

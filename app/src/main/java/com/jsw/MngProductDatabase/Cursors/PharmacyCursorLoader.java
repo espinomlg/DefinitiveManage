@@ -19,7 +19,7 @@ package com.jsw.MngProductDatabase.Cursors;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.content.CursorLoader;
+import android.content.CursorLoader;
 
 import com.jsw.MngProductDatabase.database.DatabaseManager;
 

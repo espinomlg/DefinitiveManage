@@ -145,6 +145,9 @@ public class DatabaseManager {
     }
 
     public Cursor getAllPharmacies() {
-        ((Activity))
+        //((Activity))
+        SQLiteDatabase sql = DatabaseHelper.getInstance().openDatabase();
+        Cursor cursor = sql.query(Contract.PharmacyEntry.TABLE_NAME, Contract.PharmacyEntry.ALL_COLUMNS, null, null, null, null, null);
+        return cursor;
     }
 }
