@@ -50,7 +50,7 @@ public class ProductPresenter implements IProductPresenter{
             @Override
             protected List<Product> doInBackground(Void... voids) {
                 try{
-                    Thread.sleep(1800);
+                    Thread.sleep(1000);
                 } catch (Exception ex){
 
                 }

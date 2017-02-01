@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 6;
     public static final String DATABASE_NAME="ManageProduct.db";
     private static DatabaseHelper databaseHelper;
     private AtomicInteger mOpenCounter;
@@ -75,6 +75,7 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(Contract.ProductEntry.SQL_CREATE_ENTRIE);
             sqLiteDatabase.execSQL(Contract.InvoiceEntry.SQL_CREATE_ENTRIE);
             sqLiteDatabase.execSQL(Contract.InvoiceLineEntry.SQL_CREATE_ENTRIE);
+            insertData(sqLiteDatabase);
             sqLiteDatabase.setTransactionSuccessful();
         } catch(SQLiteException ex){
             Log.e("DATABASE ERROR", ex.getLocalizedMessage());
@@ -119,5 +120,9 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
     public SQLiteDatabase getDatabase(){
         return getWritableDatabase();
+    }
+
+    private void insertData(SQLiteDatabase db) {
+        db.execSQL("insert into category values ('1', 'Pastillas')");
     }
 }

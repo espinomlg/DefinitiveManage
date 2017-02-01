@@ -25,24 +25,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.jsw.MngProductDatabase.Adapter.PharmacyAdapter;
-import com.jsw.MngProductDatabase.Adapter.ProductAdapter;
-import com.jsw.MngProductDatabase.Cursors.PharmacyCursorLoader;
-import com.jsw.MngProductDatabase.Model.Pharmacy;
-import com.jsw.MngProductDatabase.Model.Product;
 import com.jsw.MngProductDatabase.Presenter.PharmacyPresenter;
-import com.jsw.MngProductDatabase.Presenter.ProductPresenter;
 import com.jsw.MngProductDatabase.R;
-import com.jsw.MngProductDatabase.database.Contract;
 import com.jsw.MngProductDatabase.interfaces.IPharmacyPresenter;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,15 +65,15 @@ public class Pharmacy_Fragment extends Fragment implements IPharmacyPresenter.Vi
      * Called to do initial creation of a fragment.  This is called after
      * {@link #onAttach(Activity)} and before
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * <p>
-     * <p>Note that this can be called while the fragment's activity is
+     * <oldProduct>
+     * <oldProduct>Note that this can be called while the fragment's activity is
      * still in the process of being created.  As such, you can not rely
      * on things like the activity's content view hierarchy being initialized
      * at this point.  If you want to do work once the activity itself is
      * created, see {@link #onActivityCreated(Bundle)}.
-     * <p>
-     * <p>Any restored child fragments will be created before the base
-     * <code>Fragment.onCreate</code> method returns.</p>
+     * <oldProduct>
+     * <oldProduct>Any restored child fragments will be created before the base
+     * <code>Fragment.onCreate</code> method returns.</oldProduct>
      *
      * @param savedInstanceState If the fragment is being re-created from
      *                           a previous saved state, this is the state.

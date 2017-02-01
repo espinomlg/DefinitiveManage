@@ -38,21 +38,17 @@ import com.jsw.MngProductDatabase.R;
 import com.jsw.MngProductDatabase.database.Contract;
 import com.jsw.MngProductDatabase.interfaces.ICategoryPresenter;
 import com.jsw.MngProductDatabase.interfaces.IProduct;
-import com.squareup.picasso.Picasso;
-
-import java.util.Random;
 
 public class ManageProduct_Fragment extends Fragment implements ICategoryPresenter.View {
 
+    private static CategoryPresenter mPresenter;
     TextInputLayout mName, mTrademark, mDosage, mStock, mPrice, mDescription, mUrl;
     ImageView mImage;
     Spinner mCategory;
-    Product p;
-    private SimpleCursorAdapter mCursorAdapter;
-    private static CategoryPresenter mPresenter;
-
+    Product oldProduct;
     FloatingActionButton mFabSave;
     IManageListener mCallBack;
+    private SimpleCursorAdapter mCursorAdapter;
 
     public static ManageProduct_Fragment getInstance(Bundle args){
         ManageProduct_Fragment fragment = new ManageProduct_Fragment();
@@ -66,7 +62,7 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
-            this.p = getArguments().getParcelable(IProduct.PRODUCT_KEY);
+            this.oldProduct = getArguments().getParcelable(IProduct.PRODUCT_KEY);
         }
 
         mPresenter = new CategoryPresenter(this);
@@ -105,16 +101,16 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(p != null){;
-            //mImage.setImageResource(p.getImage());
-            mName.getEditText().setText(p.getName());
-            mTrademark.getEditText().setText(p.getBrand());
-            mDosage.getEditText().setText(p.getDosage());
-            mStock.getEditText().setText(p.getStock());
-            mPrice.getEditText().setText(String.valueOf(p.getPrice()));
-            mUrl.getEditText().setText(p.getImage());
+        if (oldProduct != null) {
+            ;
+            mName.getEditText().setText(oldProduct.getName());
+            mTrademark.getEditText().setText(oldProduct.getBrand());
+            mDosage.getEditText().setText(oldProduct.getDosage());
+            mStock.getEditText().setText(oldProduct.getStock());
+            mPrice.getEditText().setText(String.valueOf(oldProduct.getPrice()));
+            mUrl.getEditText().setText(oldProduct.getImage());
             mCategory.setSelection(0);
-            mDescription.getEditText().setText(p.getDescription());
+            mDescription.getEditText().setText(oldProduct.getDescription());
         }
 
         mFabSave.setOnClickListener(new View.OnClickListener() {
@@ -144,9 +140,14 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
         Cursor cursor = ((SimpleCursorAdapter)mCategory.getAdapter()).getCursor();
         cursor.moveToPosition(mCategory.getSelectedItemPosition());
 
+        int id = 0;
 
-        mCallBack.saveProduct(p, new Product(
-                p.getID(),
+        if (oldProduct != null)
+            id = oldProduct.getID();
+
+
+        mCallBack.saveProduct(oldProduct, new Product(
+                id,
                 mName.getEditText().getText().toString(),
                 mDescription.getEditText().getText().toString(),
                 mTrademark.getEditText().getText().toString(),
@@ -167,10 +168,6 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
         mCursorAdapter.swapCursor(cursor);
     }
 
-    public interface IManageListener{
-        void saveProduct(Product oldProduct, Product newProduct);
-    }
-
     /**
      * Called when the fragment is no longer attached to its activity.  This
      * is called after {@link #onDestroy()}.
@@ -180,5 +177,9 @@ public class ManageProduct_Fragment extends Fragment implements ICategoryPresent
         mCallBack = null;
         mCursorAdapter = null; //Cerramos el cursor en on Detach.
         super.onDetach();
+    }
+
+    public interface IManageListener {
+        void saveProduct(Product oldProduct, Product newProduct);
     }
 }
