@@ -22,17 +22,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jsw.MngProductDatabase.Model.Pharmacy;
 import com.jsw.MngProductDatabase.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ManagePharmacy extends Fragment {
+
+    private IMngPharmacy mCallback;
+    private TextInputLayout mTilCif, mTilAddres, mTilPhone;
 
     private FloatingActionButton mFab;
     //private IPharmacyListener mCallback;
@@ -48,7 +53,7 @@ public class ManagePharmacy extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //mCallback = (IPharmacyListener)activity;
+        mCallback = (IMngPharmacy) activity;
     }
 
 
@@ -57,21 +62,30 @@ public class ManagePharmacy extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_manage_pharmacy, container, false);
-        mFab = (FloatingActionButton) rootview.findViewById(R.id.fab_add_pharmacy);
+        mFab = (FloatingActionButton) rootview.findViewById(R.id.fab_save_pharmacy);
+        mTilCif = (TextInputLayout) rootview.findViewById(R.id.til_cif);
+        mTilAddres = (TextInputLayout) rootview.findViewById(R.id.til_address);
+        mTilPhone = (TextInputLayout) rootview.findViewById(R.id.til_phone);
         return rootview;
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*mFab.setOnClickListener(new View.OnClickListener() {
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCallback.addPharmacy();
+                Pharmacy p = new Pharmacy(0,
+                        mTilCif.getEditText().getText().toString(),
+                        mTilAddres.getEditText().getText().toString(),
+                        mTilPhone.getEditText().getText().toString());
+                mCallback.addPharmacy(p);
             }
-        });*/
+        });
+    }
 
+    public interface IMngPharmacy {
+        void addPharmacy(Pharmacy pharmacy);
     }
 
 }

@@ -102,7 +102,7 @@ public class Pharmacy_Fragment extends Fragment implements IPharmacyPresenter.Vi
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCallback.addPharmacy();
+                mCallback.showMngPharmacy();
             }
         });
         mList.setAdapter(mAdapter);
@@ -126,7 +126,7 @@ public class Pharmacy_Fragment extends Fragment implements IPharmacyPresenter.Vi
     }
 
     public interface IPharmacyListener {
-        void addPharmacy();
+        void showMngPharmacy();
     }
 
 

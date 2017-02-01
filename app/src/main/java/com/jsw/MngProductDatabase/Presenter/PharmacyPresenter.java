@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.widget.CursorAdapter;
 
 import com.jsw.MngProductDatabase.Cursors.PharmacyCursorLoader;
+import com.jsw.MngProductDatabase.Model.Pharmacy;
+import com.jsw.MngProductDatabase.database.DatabaseManager;
 import com.jsw.MngProductDatabase.interfaces.IPharmacyPresenter;
 
 /**
@@ -34,8 +36,8 @@ import com.jsw.MngProductDatabase.interfaces.IPharmacyPresenter;
 
 public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.LoaderCallbacks<Cursor> {
 
-    IPharmacyPresenter.View view;
     private final static int PHARMACY=1;
+    IPharmacyPresenter.View view;
     private Context context;
 
     public PharmacyPresenter(IPharmacyPresenter.View Vista){
@@ -48,7 +50,7 @@ public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.Load
         ((Activity)context).getLoaderManager().initLoader(PHARMACY, null, this);
     }
 
-    public void restartLoader(){
+    private void restartLoader() {
         ((Activity)context).getLoaderManager().restartLoader(PHARMACY, null, this);
     }
 
@@ -75,6 +77,11 @@ public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         view.setPharmacyCategory(cursor);
+    }
+
+    public void addPharmacy(Pharmacy pharmacy) {
+        DatabaseManager.getInstance().addPharmacy(pharmacy);
+        this.restartLoader();
     }
 
     @Override

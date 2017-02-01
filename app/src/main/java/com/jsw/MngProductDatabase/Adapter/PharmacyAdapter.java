@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.jsw.MngProductDatabase.Model.Pharmacy;
@@ -45,7 +44,7 @@ public class PharmacyAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater lf = LayoutInflater.from(context);
-        View rootView = lf.inflate(R.layout.item_pharmacyt, parent, false);
+        View rootView = lf.inflate(R.layout.item_pharmacy, parent, false);
         PharmacyHolder ph = new PharmacyHolder();
         ph.tvAddress = (TextView)rootView.findViewById(R.id.tv_phar_address);
         ph.tvCif = (TextView)rootView.findViewById(R.id.tv_phar_cif);

@@ -17,15 +17,14 @@ package com.jsw.MngProductDatabase.database;
  *  jose.gallardo994@gmail.com
  */
 
-import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+import com.jsw.MngProductDatabase.Model.Pharmacy;
 import com.jsw.MngProductDatabase.Model.Product;
 
 import java.util.ArrayList;
@@ -37,15 +36,15 @@ import java.util.List;
 public class DatabaseManager {
     private static DatabaseManager ourInstance;
 
+    private DatabaseManager() {
+
+    }
+
     public static DatabaseManager getInstance() {
         if(ourInstance == null)
             ourInstance = new DatabaseManager();
 
         return ourInstance;
-    }
-
-    private DatabaseManager() {
-
     }
 
     public void addProduct(Product p){
@@ -149,5 +148,17 @@ public class DatabaseManager {
         SQLiteDatabase sql = DatabaseHelper.getInstance().openDatabase();
         Cursor cursor = sql.query(Contract.PharmacyEntry.TABLE_NAME, Contract.PharmacyEntry.ALL_COLUMNS, null, null, null, null, null);
         return cursor;
+    }
+
+    public void addPharmacy(Pharmacy pharmacy) {
+        SQLiteDatabase sqlite = DatabaseHelper.getInstance().openDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(Contract.PharmacyEntry.COLUMN_CIF, pharmacy.getCif());
+        cv.put(Contract.PharmacyEntry.COLUMN_ADDRESS, pharmacy.getAddress());
+        cv.put(Contract.PharmacyEntry.COLUMN_PHONE, pharmacy.getPhone());
+        sqlite.insert(Contract.PharmacyEntry.TABLE_NAME, null, cv);
+
+        DatabaseHelper.getInstance().closeDatabase();
     }
 }

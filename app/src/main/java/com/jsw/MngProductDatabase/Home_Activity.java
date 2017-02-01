@@ -36,13 +36,16 @@ import com.jsw.MngProductDatabase.Fragments.ManagePharmacy;
 import com.jsw.MngProductDatabase.Fragments.ManageProduct_Fragment;
 import com.jsw.MngProductDatabase.Fragments.Pharmacy_Fragment;
 import com.jsw.MngProductDatabase.Fragments.Sales_Fragment;
+import com.jsw.MngProductDatabase.Model.Pharmacy;
 import com.jsw.MngProductDatabase.Model.Product;
+import com.jsw.MngProductDatabase.Presenter.PharmacyPresenter;
 import com.jsw.MngProductDatabase.Presenter.ProductPresenter;
 import com.jsw.MngProductDatabase.utils.DialogoConfirmacion;
 
-public class Home_Activity extends AppCompatActivity implements ListProduct_Fragment.IListProductListener, ManageProduct_Fragment.IManageListener, Pharmacy_Fragment.IPharmacyListener {
+public class Home_Activity extends AppCompatActivity implements ListProduct_Fragment.IListProductListener, ManageProduct_Fragment.IManageListener, Pharmacy_Fragment.IPharmacyListener, ManagePharmacy.IMngPharmacy {
 
-    ProductPresenter mPresenter;
+    ProductPresenter mProductPresenter;
+    PharmacyPresenter mPharPresenter;
     private ListProduct_Fragment mListProduct;
     private ManageProduct_Fragment mManageProduct;
     private Home_Fragment mHome;
@@ -65,7 +68,7 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
         mHome = new Home_Fragment();
         mPharmacy = new Pharmacy_Fragment();
         mSales = new Sales_Fragment();
-        mPresenter = new ProductPresenter(mListProduct);
+        mProductPresenter = new ProductPresenter(mListProduct);
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         mNav = (NavigationView)findViewById(R.id.navigation_view);
         mDrawer = (DrawerLayout)findViewById(R.id.drawerLayout);
@@ -113,21 +116,21 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
         mPotatoe.putParcelable("product", product);
         DialogoConfirmacion dialog = new DialogoConfirmacion();
         dialog.setArguments(mPotatoe);
-        dialog.setPresenter(mPresenter);
+        dialog.setPresenter(mProductPresenter);
         dialog.show(getFragmentManager(), "");
     }
 
     @Override
     public void undoDeleting(Product product) {
-        mPresenter.addProduct(product);
+        mProductPresenter.addProduct(product);
     }
 
     @Override
     public void saveProduct(Product oldProduct, Product newProduct) {
         if(oldProduct == null)
-            mPresenter.addProduct(newProduct);
+            mProductPresenter.addProduct(newProduct);
         else
-            mPresenter.updateProduct(oldProduct, newProduct);
+            mProductPresenter.updateProduct(oldProduct, newProduct);
 
         getSupportFragmentManager().popBackStack();
     }
@@ -200,11 +203,19 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
     }
 
     @Override
-    public void addPharmacy() {
+    public void showMngPharmacy() {
         mMngPharmacy = ManagePharmacy.getInstance();
         FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
         fr.replace(R.id.fl_frameHome, mMngPharmacy);
         fr.addToBackStack("ListPharmacy");
         fr.commit();
+    }
+
+
+    @Override
+    public void addPharmacy(Pharmacy pharmacy) {
+        getSupportFragmentManager().popBackStack();
+        mPharPresenter = new PharmacyPresenter(mPharmacy);
+        mPharPresenter.addPharmacy(pharmacy);
     }
 }
