@@ -161,4 +161,20 @@ public class DatabaseManager {
 
         DatabaseHelper.getInstance().closeDatabase();
     }
+
+    public void updatePharmacy(Pharmacy pharma){
+        SQLiteDatabase db = DatabaseHelper.getInstance().openDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(Contract.PharmacyEntry.COLUMN_CIF, pharma.getCif());
+        cv.put(Contract.PharmacyEntry.COLUMN_ADDRESS, pharma.getAddress());
+        cv.put(Contract.PharmacyEntry.COLUMN_CIF, pharma.getPhone());
+        String[] whereArgs = {String.valueOf(pharma.getId())};
+        db.update(Contract.PharmacyEntry.TABLE_NAME,cv,"id=?",whereArgs);
+    }
+    public void deletePharmacy(int id){
+        SQLiteDatabase db = DatabaseHelper.getInstance().openDatabase();
+        String[] args = {String.valueOf(id)};
+        db.delete(Contract.PharmacyEntry.TABLE_NAME,"id=?",args);
+    }
 }

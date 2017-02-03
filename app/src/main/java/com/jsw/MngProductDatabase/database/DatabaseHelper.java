@@ -124,6 +124,6 @@ public final class DatabaseHelper extends SQLiteOpenHelper {
 
     private void insertData(SQLiteDatabase db) {
         db.execSQL("insert into category values ('1', 'Pastillas')");
-        db.execSQL("insert into pharmacy values (1, '32352', 'Competa', '952707070'");
+        db.execSQL("insert into pharmacy values (1, '32352', 'Competa', '952707070')");
     }
 }

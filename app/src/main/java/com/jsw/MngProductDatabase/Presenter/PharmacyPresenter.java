@@ -36,7 +36,7 @@ import com.jsw.MngProductDatabase.interfaces.IPharmacyPresenter;
 
 public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.LoaderCallbacks<Cursor> {
 
-    private final static int PHARMACY=1;
+    private final static int PHARMACY=2;
     IPharmacyPresenter.View view;
     private Context context;
 
@@ -83,6 +83,11 @@ public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.Load
         DatabaseManager.getInstance().addPharmacy(pharmacy);
         this.restartLoader();
     }
+    public void updatePharmacy(Pharmacy pharma){
+        DatabaseManager.getInstance().updatePharmacy(pharma);
+        this.restartLoader();
+    }
+
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
