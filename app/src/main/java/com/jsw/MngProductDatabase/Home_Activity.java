@@ -203,8 +203,8 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
     }
 
     @Override
-    public void showMngPharmacy() {
-        mMngPharmacy = ManagePharmacy.getInstance();
+    public void showMngPharmacy(Bundle args) {
+        mMngPharmacy = ManagePharmacy.getInstance(args);
         FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
         fr.replace(R.id.fl_frameHome, mMngPharmacy);
         fr.addToBackStack("ListPharmacy");
@@ -217,5 +217,12 @@ public class Home_Activity extends AppCompatActivity implements ListProduct_Frag
         getSupportFragmentManager().popBackStack();
         mPharPresenter = new PharmacyPresenter(mPharmacy);
         mPharPresenter.addPharmacy(pharmacy);
+    }
+
+    @Override
+    public void updatePharmacy(Pharmacy pharma) {
+        getSupportFragmentManager().popBackStack();
+        mPharPresenter = new PharmacyPresenter(mPharmacy);
+        mPharPresenter.updatePharmacy(pharma);
     }
 }

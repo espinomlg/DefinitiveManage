@@ -38,6 +38,7 @@ public class ManagePharmacy extends Fragment {
 
     private IMngPharmacy mCallback;
     private TextInputLayout mTilCif, mTilAddres, mTilPhone;
+    private Pharmacy pharma;
 
     private FloatingActionButton mFab;
     //private IPharmacyListener mCallback;
@@ -46,8 +47,12 @@ public class ManagePharmacy extends Fragment {
         // Required empty public constructor
     }
 
-    public static ManagePharmacy getInstance() {
-        return new ManagePharmacy();
+    public static ManagePharmacy getInstance(Bundle args) {
+        ManagePharmacy fragment = new ManagePharmacy();
+        if(args != null)
+            fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
@@ -72,20 +77,37 @@ public class ManagePharmacy extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Pharmacy p = new Pharmacy(0,
-                        mTilCif.getEditText().getText().toString(),
-                        mTilAddres.getEditText().getText().toString(),
-                        mTilPhone.getEditText().getText().toString());
-                mCallback.addPharmacy(p);
-            }
-        });
+        if(getArguments() != null){
+           pharma = getArguments().getParcelable(Pharmacy.PHARMACY_KEY);
+            mTilCif.getEditText().setText(pharma.getCif());
+            mTilAddres.getEditText().setText(pharma.getAddress());
+            mTilPhone.getEditText().setText(pharma.getPhone());
+            mFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Pharmacy p = new Pharmacy(pharma.getId(),
+                            mTilCif.getEditText().getText().toString(),
+                            mTilAddres.getEditText().getText().toString(),
+                            mTilPhone.getEditText().getText().toString());
+                    mCallback.updatePharmacy(p);
+                }
+            });
+        }else
+            mFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Pharmacy p = new Pharmacy(0,
+                            mTilCif.getEditText().getText().toString(),
+                            mTilAddres.getEditText().getText().toString(),
+                            mTilPhone.getEditText().getText().toString());
+                    mCallback.addPharmacy(p);
+                }
+            });
     }
 
     public interface IMngPharmacy {
         void addPharmacy(Pharmacy pharmacy);
+        void updatePharmacy(Pharmacy pharma);
     }
 
 }

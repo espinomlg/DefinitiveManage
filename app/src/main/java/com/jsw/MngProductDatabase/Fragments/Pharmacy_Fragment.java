@@ -25,12 +25,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.PopupMenu;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jsw.MngProductDatabase.Adapter.PharmacyAdapter;
+import com.jsw.MngProductDatabase.Model.Pharmacy;
 import com.jsw.MngProductDatabase.Presenter.PharmacyPresenter;
 import com.jsw.MngProductDatabase.R;
 import com.jsw.MngProductDatabase.interfaces.IPharmacyPresenter;
@@ -102,10 +109,42 @@ public class Pharmacy_Fragment extends Fragment implements IPharmacyPresenter.Vi
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCallback.showMngPharmacy();
+                mCallback.showMngPharmacy(null);
             }
         });
         mList.setAdapter(mAdapter);
+
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Pharmacy pharma = (Pharmacy) mAdapter.getItem(i);
+                Bundle args = new Bundle();
+                args.putParcelable(Pharmacy.PHARMACY_KEY, pharma);
+                mCallback.showMngPharmacy(args);
+            }
+        });
+
+        mList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> adapterView, View view, int i, long l) {
+                final int pos = i;
+                PopupMenu menu = new PopupMenu(getContext(),view);
+                menu.setGravity(Gravity.END);
+                menu.getMenuInflater().inflate(R.menu.delete_menu, menu.getMenu());
+
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Pharmacy pharma = (Pharmacy) adapterView.getItemAtPosition(pos);
+                        mPresenter.deletePharmacy(pharma);
+                        return true;
+                    }
+                });
+                menu.show();
+                return true;
+            }
+        });
+
     }
 
     /**
@@ -121,12 +160,24 @@ public class Pharmacy_Fragment extends Fragment implements IPharmacyPresenter.Vi
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
     public void setPharmacyCategory(Cursor cursor) {
         mAdapter.swapCursor(cursor);
     }
 
     public interface IPharmacyListener {
-        void showMngPharmacy();
+        void showMngPharmacy(Bundle args);
     }
 
 

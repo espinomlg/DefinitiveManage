@@ -170,11 +170,12 @@ public class DatabaseManager {
         cv.put(Contract.PharmacyEntry.COLUMN_ADDRESS, pharma.getAddress());
         cv.put(Contract.PharmacyEntry.COLUMN_CIF, pharma.getPhone());
         String[] whereArgs = {String.valueOf(pharma.getId())};
-        db.update(Contract.PharmacyEntry.TABLE_NAME,cv,"id=?",whereArgs);
+        db.update(Contract.PharmacyEntry.TABLE_NAME,cv,"_id=?",whereArgs);
+
     }
     public void deletePharmacy(int id){
         SQLiteDatabase db = DatabaseHelper.getInstance().openDatabase();
         String[] args = {String.valueOf(id)};
-        db.delete(Contract.PharmacyEntry.TABLE_NAME,"id=?",args);
+        db.delete(Contract.PharmacyEntry.TABLE_NAME,"_id=?",args);
     }
 }

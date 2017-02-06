@@ -87,6 +87,10 @@ public class PharmacyPresenter implements IPharmacyPresenter, LoaderManager.Load
         DatabaseManager.getInstance().updatePharmacy(pharma);
         this.restartLoader();
     }
+    public void deletePharmacy(Pharmacy pharma){
+        DatabaseManager.getInstance().deletePharmacy(pharma.getId());
+        this.restartLoader();
+    }
 
 
     @Override
